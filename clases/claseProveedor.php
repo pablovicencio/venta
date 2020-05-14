@@ -62,7 +62,7 @@ class ProveedoresDAO
                 $sql_crear_prov = "";
 
 
-                $stmt = $pdo->prepare(sql_crear_prov);
+                $stmt = $pdo->prepare($sql_crear_prov);
                 $stmt->bindParam(":", , PDO::PARAM_INT);
                 
                 $stmt->execute();

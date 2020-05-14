@@ -66,7 +66,7 @@ class ClientesDAO
                 $sql_crear_cli = "";
 
 
-                $stmt = $pdo->prepare(sql_crear_cli);
+                $stmt = $pdo->prepare($sql_crear_cli);
                 $stmt->bindParam(":", , PDO::PARAM_INT);
                 
                 $stmt->execute();

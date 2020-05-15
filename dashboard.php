@@ -1,21 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon.png">
-    <title>Lubricentro - Dashboard</title>
-
-
-    <?php
-        include("includes/recursoSuperior.php");
-    ?>
-</head>
+<!-- Include del Head HTML INCLUYE LIBRERIAS EXTERNAS -->
+<?php
+ include("includesMain/headHtml.php");
+?>
+<!-- FIN Include del Head HTML -->
 
 <body class="fix-header fix-sidebar card-no-border">
     <!-- ============================================================== -->
@@ -32,10 +19,11 @@
 
         <?php
             //Includes de Header y LeftSidebar
-            include("includes/header.php");
-            include("includes/leftSideBar.php");
+            include("includesMain/header.php");
+            include("includesMain/leftSideBar.php");
         ?>
 
+        <!-- Contenido Principal -->
         <div class="page-wrapper">
             <div class="container-fluid">
                 <div class="row page-titles">
@@ -220,39 +208,20 @@
                             </div>
                         </div>
                     </div>
-                    <!-- ============================================================== -->
-                    <!-- Activity widget find scss into widget folder-->
-                    <!-- ============================================================== -->
                 </div>
             </div>
-            <!-- ============================================================== -->
-            <!-- End Container fluid  -->
-            <!-- ============================================================== -->
-            <!-- ============================================================== -->
-            <!-- footer -->
-            <!-- ============================================================== -->
             <footer class="footer"> © 2020 DashBoard By Andescode.cl</footer>
-            <!-- ============================================================== -->
-            <!-- End footer -->
-            <!-- ============================================================== -->
         </div>
-        <!-- ============================================================== -->
-        <!-- End Page wrapper  -->
-        <!-- ============================================================== -->
-    </div>
-    <!-- ============================================================== -->
-    <!-- End Wrapper -->
-    <!-- ============================================================== -->
+        <!-- FIN Contenido Principal -->
 
-    <!-- ============================================================== -->
+    </div>
+
+
+
     <!-- All Jquery -->
-    <!-- ============================================================== -->
     <?php
-            include("includes/recursoInferior.php");
+            include("includesMain/recursoInferior.php");
     ?>
-    <!-- ============================================================== -->
-    <!-- End Jquery -->
-    <!-- ============================================================== -->
 </body>
 
 </html>

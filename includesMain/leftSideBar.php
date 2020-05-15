@@ -19,7 +19,7 @@
 
                         <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-cart"></i><span class="hide-menu">Ventas</span></a>
                             <ul aria-expanded="false" class="collapse">
-                                <li><a href="#">Nueva Venta</a></li>
+                                <li><a href="pages/nuevaVenta.php">Nueva Venta</a></li>
                                 <li><a href="#">Historial</a></li>
                                 <li><a href="#">Resúmen</a></li>
                             </ul>

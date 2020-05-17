@@ -11,7 +11,7 @@
     <div class="preloader">
         <div class="loader">
             <div class="loader__figure"></div>
-            <p class="loader__label">Lubricenstro</p>
+            <p class="loader__label">Lubricentro</p>
         </div>
     </div>
 
@@ -37,16 +37,19 @@
                         <div class="card">
                             <div class="card-body">
                             <h4 class="card-title">Producto</h4>
-                                <form class="form-horizontal p-t-20">
+                                <form id="formBusProd" name="formBusProd" class="form-horizontal p-t-20"  >
                                     <div class="form-group row">
                                         <div class="col-sm-6">
                                             <div class="input-group">
                                                 <div class="input-group-addon"><i class="mdi mdi-barcode-scan"></i></div>
                                                 <input type="text" class="form-control" name="codigoBarra" id="codigoBarra" placeholder="Escanéa el Código o Agrega el ID Fijo">
+                                                <button class="btn btn-warning" type="button" id="btn_volver_buscar"
+                                                name="btn_volver_buscar" style="display: none"><i class="fa fa-reply" aria-hidden="true"></i></button>
                                             </div>
                                         </div>
                                         
                                     </div>
+                                </form>
                                     <h5 class="card-title">Disponibilidad</h5>
                                     <div class="form-group row">
                                         <div class="col-sm-2 mt-1">
@@ -57,7 +60,7 @@
                                         </div>
                                         <div class="col-sm-2 mt-1">
                                             <div class="input-group">
-                                                <input type="text" class="form-control" id="stockActual" name="stockActual" placeholder="Stock ">
+                                                <input type="text" class="form-control" id="stockActual" name="stockActual" placeholder="Stock " readonly>
                                                 <div class="input-group-addon"><i class="mdi mdi-database"></i></div>
                                             </div>
                                         </div>

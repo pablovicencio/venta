@@ -16,6 +16,8 @@
 
 
     <?php
+        include("includesMain/recursoVenta.php");
         include("includesMain/recursoSuperior.php");
+
     ?>
 </head>

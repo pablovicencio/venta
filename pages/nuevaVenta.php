@@ -37,7 +37,7 @@
                         <div class="card">
                             <div class="card-body">
                             <h4 class="card-title">Producto</h4>
-                                <form id="formBusProd" name="formBusProd" class="form-horizontal p-t-20"  >
+                                <form id="formBusProd" name="formBusProd" onsubmit="return false;" class="form-horizontal p-t-20"  >
                                     <div class="form-group row">
                                         <div class="col-sm-6">
                                             <div class="input-group">
@@ -65,7 +65,7 @@
                                             </div>
                                         </div>
                                         <div class="col-sm-2 mt-1">
-                                            <button type="" class="btn btn-inverse"> <i class="fa fa-pencil"></i> Agregar</button>
+                                            <button type="" class="btn btn-inverse" id="btn_agr_prod" name="btn_agr_prod"> <i class="fa fa-pencil"></i> Agregar</button>
                                         </div>
                                        
 
@@ -76,13 +76,12 @@
                                                
                                                     <h4 class="card-title">Resumen Compra &nbsp;<i class="mdi  mdi-cart"></i></h4>
                                                     <div class="table-responsive m-t-2">
-                                                        <table id="resumenVenta" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+                                                        <table id="resumenVenta" name="resumenVenta" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
                                                             <thead>
                                                                 <tr>
                                                                     <th>Producto</th>
                                                                     <th>Marca</th>
                                                                     <th>Código</th>
-                                                                    <th>Detalle</th>
                                                                     <th>Cantidad</th>
                                                                     <th>Valor Unitario</th>
                                                                     <th>Total</th>
@@ -90,42 +89,7 @@
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                                <tr>
-                                                                    <td>Aceite de motor</td>
-                                                                    <td>Hyundai Xteer</td>
-                                                                    <td>3481646</td>
-                                                                    <td>Aceite de motor 20w50 2l</td>
-                                                                    <td>2</td>
-                                                                    <td>$15.200</td>
-                                                                    <td>$30.400</td>
-                                                                    <td>
-                                                                    <button type="submit" class="btn btn-warning"> <i class="mdi mdi-table-edit"></i> Editar Campo</button>  
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>Aceite de motor</td>
-                                                                    <td>Hyundai Xteer</td>
-                                                                    <td>3481646</td>
-                                                                    <td>Aceite de motor 20w50 3l</td>
-                                                                    <td>2</td>
-                                                                    <td>$15.200</td>
-                                                                    <td>$30.400</td>
-                                                                    <td>
-                                                                    <button type="submit" class="btn btn-warning"> <i class="mdi mdi-table-edit"></i> Editar Campo</button>  
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>Aceite de motor</td>
-                                                                    <td>Hyundai Xteer</td>
-                                                                    <td>3481646</td>
-                                                                    <td>Aceite de motor 20w50 4l</td>
-                                                                    <td>2</td>
-                                                                    <td>$15.200</td>
-                                                                    <td>$30.400</td>
-                                                                    <td>
-                                                                    <button type="submit" class="btn btn-warning"> <i class="mdi mdi-table-edit"></i> Editar Campo</button>  
-                                                                    </td>
-                                                                </tr>
+                                                                
                                                             </tbody>
                                                         </table>
 

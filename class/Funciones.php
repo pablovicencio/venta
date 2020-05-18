@@ -17,7 +17,15 @@ class Funciones
            if ($vig == 0) {
                 $sql = "select * from producto where cod_barra_prod = :cod";
            }else if ($vig == 1) {
-               $sql = "select * from producto where cod_barra_prod = :cod and vig_prod = 1";
+               $sql = "select a.id_prod, a.nom_prod,a.uni_med_pro,a.stock_min_prod,
+a.stock_prod,a.vig_prod,a.fec_cre_prod,a.usu_cre_prod,a.precio_bruto_prod,a.iva_prod,
+a.proc_ganan_prod,a.precio_neto_prod,a.id_prov_prod,a.embalaje_prod,
+a.cod_barra_prod,a.familia_prod,a.marca_prod,
+fam.desc_item, uni.desc_item, (a.precio_neto_prod + a.iva_prod) precio 
+from producto a, tab_param fam, tab_param uni
+ where a.uni_med_pro = uni.cod_item and uni.cod_grupo = 1 and uni.vig_item = 1
+ and a.familia_prod = fam.cod_item and fam.cod_grupo = 2 and fam.vig_item = 1 
+ and a.cod_barra_prod = '21400055315' and a.vig_prod = 1;";
            }  
                   
            

@@ -20,7 +20,7 @@
         <?php
             //../includesPages de Header y LeftSidebar
             include("../includesPages/header.php");
-            include("../includesPages/leftSideBar.php");
+            include("../includesMain/leftSideBar.php");
         ?>
         <!-- Contenido Principal -->
         <div class="page-wrapper">

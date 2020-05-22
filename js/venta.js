@@ -19,7 +19,7 @@ $(document).on("click", "#btn_ing_venta", function (){
                                         TableData[row]={
                                           "prod" : $(tr).find('td:eq(0)').text()
                                             ,"cant" : $(tr).find('td:eq(4)').text()
-                                            , "pre_total" : $(tr).find('td:eq(9)').find('input').val()
+                                            , "pre_total" : $(tr).find('td:eq(9)').text()
                                             , "prov" : $(tr).find('td:eq(10)').text()
                                         }
                                         
@@ -34,28 +34,39 @@ $(document).on("click", "#btn_ing_venta", function (){
             $.ajax({
                 type: "POST",
                 url: "../controles/controlIngVenta.php",
-                data:   { "data" : TableData, "obs_venta":obs_venta,"patente_cli":patente_cli,"km_venta":km_venta},
+                data:   { "data" : TableData, "obs_venta":obs_venta,"patente_cli":patente_cli,"km_venta":km_venta, "precio_total_venta":precio_total_venta},
                 cache: false,
                       success: function (result) { 
                         var msg = result.trim();
 
-                        switch(msg) {
-                          case '-1':
-                              swal("Error Periodo Proyección", "La empresa ya cuenta con una Proyección para este periodo, favor anular el existente", "warning");
-                              break;
-                          case '1':
-                              swal("Error Base de Datos", "Error de base de datos, comuniquese con el administrador", "warning");
-                              break;
-                          case '2':
-                              swal("Error Base de Datos", "Error de base de datos, comuniquese con el administrador", "warning");
-                              break;
-                          case '3':
-                              setInterval('location.reload()',300);
-                              break;
-                          default:
-                              swal("Ingreso Exitoso", msg, "success");
-                               $('#modal_pro_renta').modal('hide');
-                            }
+									switch(msg) {
+							          case '-1':
+							              swal("Error Base de Datos", "Error de base de datos, comuniquese con el administrador", "warning");
+							              break;
+							          default:
+							              swal("Registro de Venta", msg, "success");
+							              $("#patente_cli").prop('readonly', false);
+										  $("#btn_buscar_cli").show();
+										  $("#btn_volver_buscar_cli").hide();
+										  $("#dat_bus_cli").hide();
+										  $("#btn_mod_cli").hide();
+										  $("#btn_cre_cli").hide();
+
+										  $('#tabla_mov tbody').empty();
+										  $('#formBusCli').trigger("reset");
+
+										  $('#stockActual').val("");
+										  $('#cantidad').val("");
+										  $('#codigoBarra').val("");
+										  $("#codigoBarra").prop('readonly', false);
+										  $("#btn_volver_buscar").hide();
+										  $('#obs_ven').val("");
+										  $("#codigoBarra").focus();  
+										  $('#resumenVenta tbody').empty();
+
+										  
+
+							            }     
                       },
                       error: function(){
                               alert('Verifique los datos');      

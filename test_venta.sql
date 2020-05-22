@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 02-05-2020 a las 19:53:06
+-- Tiempo de generación: 22-05-2020 a las 01:45:19
 -- Versión del servidor: 5.7.23
 -- Versión de PHP: 7.2.10
 
@@ -36,13 +36,22 @@ CREATE TABLE IF NOT EXISTS `clientes` (
   `marca_veh_cli` int(11) DEFAULT NULL,
   `anio_veh_cli` int(11) DEFAULT NULL,
   `km_act_cli` int(11) DEFAULT NULL,
-  `fono_cli` int(11) DEFAULT NULL,
+  `fono_cli` varchar(10) DEFAULT NULL,
   `dir_cli` varchar(150) DEFAULT NULL,
   `modelo_veh_cli` varchar(45) DEFAULT NULL,
   `patente_veh_cli` varchar(6) DEFAULT NULL,
   PRIMARY KEY (`id_cli`),
+  UNIQUE KEY `patente_veh_cli` (`patente_veh_cli`),
   KEY `fk_marca_cli` (`marca_veh_cli`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `clientes`
+--
+
+INSERT INTO `clientes` (`id_cli`, `nom_cli`, `mail_cli`, `marca_veh_cli`, `anio_veh_cli`, `km_act_cli`, `fono_cli`, `dir_cli`, `modelo_veh_cli`, `patente_veh_cli`) VALUES
+(1, 'TONY STARK', 'TONY.STARK@GMAIL.COM', 1, 2018, 50000, '9966343838', 'torre avengers', 'ROADSTER', 'aa1122'),
+(2, 'bruce wayne', 'batbruce@gmail.com', 1, 2021, 10000, '996643636', NULL, 'model a', '113344');
 
 -- --------------------------------------------------------
 
@@ -81,7 +90,15 @@ CREATE TABLE IF NOT EXISTS `det_venta` (
   PRIMARY KEY (`id_det_venta`),
   KEY `fk_venta_det_idx` (`id_cab_venta`),
   KEY `fk_venta_prod_idx` (`id_prod_det_venta`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `det_venta`
+--
+
+INSERT INTO `det_venta` (`id_det_venta`, `id_prod_det_venta`, `cant_dventa`, `precio_uni_dventa`, `precio_total_dventa`, `id_cab_venta`) VALUES
+(1, 1, 2, 26168, 52336, 4),
+(2, 1, 2, 26168, 52336, 5);
 
 -- --------------------------------------------------------
 
@@ -116,7 +133,14 @@ CREATE TABLE IF NOT EXISTS `marcas_veh` (
   `id_marca` int(11) NOT NULL AUTO_INCREMENT,
   `nom_marca` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id_marca`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `marcas_veh`
+--
+
+INSERT INTO `marcas_veh` (`id_marca`, `nom_marca`) VALUES
+(1, 'Tesla');
 
 -- --------------------------------------------------------
 
@@ -140,10 +164,20 @@ CREATE TABLE IF NOT EXISTS `producto` (
   `precio_neto_prod` int(11) NOT NULL,
   `id_prov_prod` int(11) DEFAULT NULL,
   `embalaje_prod` int(11) DEFAULT NULL,
+  `cod_barra_prod` varchar(45) DEFAULT NULL,
+  `familia_prod` int(11) DEFAULT NULL,
+  `marca_prod` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id_prod`),
   UNIQUE KEY `COD_PRODUCTO` (`id_prod`),
   KEY `COD_PRODUCTO_2` (`id_prod`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `producto`
+--
+
+INSERT INTO `producto` (`id_prod`, `nom_prod`, `uni_med_pro`, `stock_min_prod`, `stock_prod`, `vig_prod`, `fec_cre_prod`, `usu_cre_prod`, `precio_bruto_prod`, `iva_prod`, `proc_ganan_prod`, `precio_neto_prod`, `id_prov_prod`, `embalaje_prod`, `cod_barra_prod`, `familia_prod`, `marca_prod`) VALUES
+(1, 'Helix 5W30 HX8 AG 4L', 2, 3, 6, 1, '2020-05-17 18:25:26', 1, 26168, 4178, 35, 21990, 1, 4, '21400055315', 1, 'Shell');
 
 -- --------------------------------------------------------
 
@@ -163,7 +197,14 @@ CREATE TABLE IF NOT EXISTS `proveedores` (
   `FEC_CRE` datetime NOT NULL,
   `PAGINA_WEB` varchar(30) NOT NULL,
   PRIMARY KEY (`ID_PROV`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `proveedores`
+--
+
+INSERT INTO `proveedores` (`ID_PROV`, `NOM_PROV`, `DESC_PROV`, `FONO`, `MAIL`, `VIGENCIA`, `USU_CRE`, `FEC_CRE`, `PAGINA_WEB`) VALUES
+(1, 'Christian Hughes y cia Ltda.', 'Lubricantes y accesorios', '994480505', 'flubiano@chughes.cl', '1', '1', '2020-05-17 18:24:31', '');
 
 -- --------------------------------------------------------
 
@@ -179,7 +220,18 @@ CREATE TABLE IF NOT EXISTS `tab_param` (
   `desc_item` varchar(80) DEFAULT NULL,
   `vig_item` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_param`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `tab_param`
+--
+
+INSERT INTO `tab_param` (`id_param`, `cod_grupo`, `cod_item`, `desc_item`, `vig_item`) VALUES
+(1, 1, 0, 'Unidades de Medidas', 1),
+(2, 1, 2, 'Litros', 1),
+(3, 1, 3, 'Unidad', 1),
+(4, 2, 0, 'Familia', 1),
+(5, 2, 1, 'Aceite', 1);
 
 -- --------------------------------------------------------
 
@@ -193,18 +245,29 @@ CREATE TABLE IF NOT EXISTS `venta` (
   `fec_venta` datetime NOT NULL,
   `est_venta` int(11) NOT NULL,
   `precio_total_venta` int(11) NOT NULL,
-  `tipo_doc_venta` int(11) NOT NULL,
-  `num_doc_venta` int(11) NOT NULL,
+  `tipo_doc_venta` int(11) DEFAULT NULL,
+  `num_doc_venta` int(11) DEFAULT NULL,
   `usu_venta` int(11) DEFAULT NULL,
   `usu_anu_venta` int(11) DEFAULT NULL,
   `obs_anu_venta` varchar(200) DEFAULT NULL,
   `fec_anu_venta` datetime DEFAULT NULL,
   `obs_venta` varchar(200) DEFAULT NULL,
   `id_cli_venta` int(11) DEFAULT NULL,
+  `km_venta` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_venta`),
-  KEY `ID_VENTA` (`id_venta`),
-  KEY `fk_venta_cli_idx` (`id_cli_venta`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  KEY `ID_VENTA` (`id_venta`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `venta`
+--
+
+INSERT INTO `venta` (`id_venta`, `fec_venta`, `est_venta`, `precio_total_venta`, `tipo_doc_venta`, `num_doc_venta`, `usu_venta`, `usu_anu_venta`, `obs_anu_venta`, `fec_anu_venta`, `obs_venta`, `id_cli_venta`, `km_venta`) VALUES
+(1, '2020-05-21 11:05:04', 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, 'TEST OBS VENTA', NULL, 0),
+(2, '2020-05-21 11:05:13', 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, 'TEST OBS VENTA', NULL, 0),
+(3, '2020-05-21 11:05:52', 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, '', 1, 30000),
+(4, '2020-05-21 11:05:57', 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, '', 1, 30000),
+(5, '2020-05-21 11:05:06', 1, 52336, NULL, NULL, NULL, NULL, NULL, NULL, 'OBS_TEST', 1, 50000);
 
 --
 -- Restricciones para tablas volcadas
@@ -229,12 +292,6 @@ ALTER TABLE `det_ingreso`
 ALTER TABLE `det_venta`
   ADD CONSTRAINT `fk_venta_det` FOREIGN KEY (`id_cab_venta`) REFERENCES `venta` (`id_venta`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_venta_prod` FOREIGN KEY (`id_prod_det_venta`) REFERENCES `producto` (`id_prod`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Filtros para la tabla `venta`
---
-ALTER TABLE `venta`
-  ADD CONSTRAINT `fk_venta_cli` FOREIGN KEY (`id_cli_venta`) REFERENCES `clientes` (`id_cli`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

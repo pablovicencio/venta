@@ -15,8 +15,11 @@
 	try{
 
 		 
+			$fec_venta = date("Y-m-d h:m:s", time());
+			$est_venta = 1;
 			
-			$km_venta = stripcslashes ($_POST['km_venta']);
+			$precio_total_venta =  stripcslashes ($_POST['precio_total_venta']);
+			$precio_total_venta = str_replace(",","",(str_replace(".","",(str_replace("$","",$precio_total_venta)))));
 
 			 if (isset($_POST['obs_venta'])) {
 	          $obs_venta = strtoupper(stripcslashes ($_POST['obs_venta']));
@@ -29,15 +32,26 @@
 	        }else{
 	          $patente_cli = '';
 	        }
+	        if ((strlen($_POST['km_venta']) <> 0)) {
+	         $km_venta = stripcslashes ($_POST['km_venta']);
+	        }else{
+	          $km_venta = 0;
+	        }
 
 
-	        $dao = new ClienteDAO('',$nom_cli,$mail_cli,$marca_veh_cli,$anio_veh_cli,$km_veh_cli,$fono_cli,'',$modelo_veh_cli,$patente_cli);
+	         $TableData = stripcslashes ($_POST['data']);
+
+	         // Decodificar el array JSON
+	         $TableData= json_decode($TableData,TRUE);
+
+
+	        $dao = new VentaDAO('',$fec_venta,$est_venta,$precio_total_venta,'','','','','','',$obs_venta, $patente_cli,$km_venta,$TableData);
 
 				
-			$crear_cli = $dao->crear_cli();
+			$ing_venta = $dao->ing_venta();
 			 
-				if ($crear_cli>0){
-					echo "Cliente Creado correctamente!";    
+				if ($ing_venta>0){
+					echo "Venta registrada correctamente!";    
 					
 				
 				} else {

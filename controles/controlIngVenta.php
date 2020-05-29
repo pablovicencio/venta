@@ -51,7 +51,7 @@
 			$ing_venta = $dao->ing_venta();
 			 
 				if ($ing_venta>0){
-					echo "Venta registrada correctamente!";    
+					echo $ing_venta;//"Venta registrada correctamente!";    
 					
 				
 				} else {

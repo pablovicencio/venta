@@ -44,7 +44,7 @@ $(document).on("click", "#btn_ing_venta", function (){
 							              swal("Error Base de Datos", "Error de base de datos, comuniquese con el administrador", "warning");
 							              break;
 							          default:
-							              swal("Registro de Venta", msg, "success");
+							              swal("Registro de Venta","Venta registrada correctamente!", "success");
 							              $("#patente_cli").prop('readonly', false);
 										  $("#btn_buscar_cli").show();
 										  $("#btn_volver_buscar_cli").hide();
@@ -63,6 +63,11 @@ $(document).on("click", "#btn_ing_venta", function (){
 										  $('#obs_ven').val("");
 										  $("#codigoBarra").focus();  
 										  $('#resumenVenta tbody').empty();
+										  $('#resNeto').val("");
+										  $('#resIva').val("");
+										  $('#resTotal').val("");
+										  window.open('impVenta.php?id='+msg, '_blank'); 
+										  
 
 										  
 
@@ -443,12 +448,17 @@ $(document).ready(function() {
 			        url: '../controles/controlCargarProd.php',
 			        data:{"prod":cod_prod},
 			        dataType:'json',
-			        success: function (result) { 
+			        success: function (result) {
+			        if (result != '') {
+			        	$('#stockActual').val(result[0].stock_prod);
+						$("#codigoBarra").prop('readonly', true);
+						$("#btn_volver_buscar").show();
+						$("#cantidad").focus(); 
+			        }else{
+			        	swal("Producto no encontrado", "Verifique el codigo del producto", "error"); 
+			        }
 
-							$('#stockActual').val(result[0].stock_prod);
-							$("#codigoBarra").prop('readonly', true);
-							$("#btn_volver_buscar").show();
-							$("#cantidad").focus();          
+							         
 
 			},
 			        error: function(jqXHR, textStatus, errorThrown){

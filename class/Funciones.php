@@ -5,6 +5,66 @@ require_once '../recursos/db/db.php';
 
 class Funciones 
 {
+    /*///////////////////////////////////////
+    Cargar datos de detalle venta
+    //////////////////////////////////////*/
+    public function cargar_datos_det_venta($id){
+        try{
+           
+           
+           $pdo = AccesoDB::getCon();
+                   
+           
+                $sql = 'select CASE
+                            WHEN b.familia_prod = 2 THEN "Filtro Aceite"
+                            WHEN b.familia_prod = 3 THEN "Filtro Aire"
+                            ELSE b.nom_prod
+                        END nom_prod, 
+                         a.cant_dventa, c.desc_item, a.precio_uni_dventa, precio_total_dventa
+                         from det_venta a, producto b, tab_param c  where b.uni_med_pro = c.cod_item and 
+                         c.cod_grupo = 1 and id_cab_venta = :id';
+                  
+           
+           $stmt = $pdo->prepare($sql);
+           $stmt->bindParam(":id", $id, PDO::PARAM_INT);
+           $stmt->execute();
+           $response = $stmt->fetchAll();
+           return $response;
+       } catch (Exception $e) {
+           echo"-1";
+            //echo"<script type=\"text/javascript\">alert('Error, comuniquese con el administrador".  $e->getMessage()." '); window.location='../../index.html';</script>";
+       }
+   }
+
+
+
+    /*///////////////////////////////////////
+    Cargar datos de cabecera venta
+    //////////////////////////////////////*/
+    public function cargar_datos_cab_venta($id){
+        try{
+           
+           
+           $pdo = AccesoDB::getCon();
+                   
+           
+                $sql = "select b.nom_cli, b.mail_cli, c.nom_marca, b.anio_veh_cli, a.km_venta,b.fono_cli, b.modelo_veh_cli,b.patente_veh_cli,a.obs_venta, 
+                        round(a.precio_total_venta/1.19) neto, round((a.precio_total_venta/1.19)*0.19) iva, a.precio_total_venta
+                        from venta a, clientes b, marcas_veh c
+                        where a.id_cli_venta = b.id_cli and b.marca_veh_cli = c.id_marca and id_venta = :id";
+                  
+           
+           $stmt = $pdo->prepare($sql);
+           $stmt->bindParam(":id", $id, PDO::PARAM_INT);
+           $stmt->execute();
+           $response = $stmt->fetchAll();
+           return $response;
+       } catch (Exception $e) {
+           echo"-1";
+            //echo"<script type=\"text/javascript\">alert('Error, comuniquese con el administrador".  $e->getMessage()." '); window.location='../../index.html';</script>";
+       }
+   }
+
 
 
     /*///////////////////////////////////////

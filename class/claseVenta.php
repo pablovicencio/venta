@@ -121,11 +121,24 @@ class VentaDAO
 
                                 $stmt->execute();
 
+
+                                $sql_stock= "update producto
+                                             set stock_prod = stock_prod - :cant
+                                             where id_prod = :id";
+                                $stmt_stock = $pdo->prepare($sql_stock);
+                                    $stmt_stock->bindParam("id", $prod, PDO::PARAM_INT);
+                                    $stmt_stock->bindParam("cant", $cant, PDO::PARAM_INT);
+                                $stmt_stock->execute();
+
                  }
 
+                 if ($stmt->rowCount() > 0) {
+                     return $id;
+                 }else{
+                     return $stmt->rowCount();
+                 }
 
-
-                return $stmt->rowCount();
+               
 
 
 

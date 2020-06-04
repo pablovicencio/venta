@@ -45,9 +45,17 @@
                                                 <input type="text" class="form-control" name="codigoBarra" id="codigoBarra" placeholder="Escanéa el Código o Agrega el ID Fijo">
                                                 <button class="btn btn-warning" type="button" id="btn_volver_buscar"
                                                 name="btn_volver_buscar" style="display: none"><i class="fa fa-reply" aria-hidden="true"></i></button>
+                                                 <span id="nom_prod" name="nom_prod"></span>
                                             </div>
+
+                                            <div class="row">
+                                                <div class="list-group" id="lista_prod" name="lista_prod">
+                                                </div>
+                                            </div>
+
                                         </div>
                                         
+                                                                                
                                     </div>
                                 </form>
                                     <h5 class="card-title">Disponibilidad</h5>

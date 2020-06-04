@@ -8,16 +8,16 @@
                         <!-- Logo icon --><b>
                             <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
                             <!-- Dark Logo icon -->
-                            <img src="assets/images/logo-icon.png" alt="Lubricentro" class="dark-logo" />
+                            <img src="../assets/images/logo-icon.png" alt="Lubricentro" class="dark-logo" />
                             <!-- Light Logo icon -->
-                            <img src="assets/images/logo-light-icon.png" alt="Lubricentro" class="light-logo" />
+                            <img src="../assets/images/logo-light-icon.png" alt="Lubricentro" class="light-logo" />
                         </b>
                         <!--End Logo icon -->
                         <!-- Logo text --><span>
                          <!-- dark Logo text -->
-                         <img src="assets/images/logo-text.png" alt="Lubricentro" class="dark-logo" />
+                         <img src="../assets/images/logo-text.png" alt="Lubricentro" class="dark-logo" />
                          <!-- Light Logo text -->    
-                         <img src="assets/images/logo-light-text.png" class="light-logo" alt="Lubricentro" /></span> </a>
+                         <img src="../assets/images/logo-light-text.png" class="light-logo" alt="Lubricentro" /></span> </a>
                 </div>
                 <!-- ============================================================== -->
                 <!-- End Logo -->

@@ -1,3 +1,52 @@
+ 
+//////////funcion busqueda predictiva por nombre
+ $(document).ready(function(){
+        $("#codigoBarra").keyup(function(e){
+
+        	  $("#lista_prod").empty();
+                                      
+              //obtenemos el texto introducido en el campo de búsqueda
+              prod = $("#codigoBarra").val();
+
+              if ((prod!= '')&&(prod != 'NaN')) {
+              	  //hace la búsqueda                                                                                  
+	              $.ajax({
+	                    type: "POST",
+	                    url: "../controles/controlBuscarProd.php",
+	                    data:  { "prod" : prod},
+	                    dataType:'json',
+		                    success: function(result){
+
+
+		                    var filas = Object.keys(result).length;
+												        
+												     
+												        for (  i = 0 ; i < filas; i++){ //cuenta la cantidad de registros
+												          var nuevafila= '<a href="#" class="list-group-item list-group-item-action" onclick="$(\'#codigoBarra\').val('+result[i].id_prod+'); $(\'#formBusProd\').submit()">' +
+												          result[i].nom_prod + "</a>"
+												     
+												          $("#lista_prod").append(nuevafila);
+
+												        }
+	                                                            
+		                    },
+		                    error: function(){
+		                    alert("error petición ajax");
+		                    }
+	                    
+	              });  
+              }                                                                        
+        }); 
+
+});       
+
+
+
+
+
+
+
+
 //////////funcion ingresar venta
 $(document).on("click", "#btn_ing_venta", function (){  
 
@@ -183,6 +232,7 @@ $(document).on("click", "#btn_volver_buscar_cli", function () {
 		$("#btn_cre_cli").hide();
 
 		 $('#tabla_mov tbody').empty();
+		 $("#lista_prod").empty();
 		 $('#formBusCli').trigger("reset");
 
 
@@ -233,7 +283,7 @@ $(document).on("click", "#btn_buscar_cli", function () {
 
 
 							        		        var filas = Object.keys(result).length;
-											        console.log (filas);
+											        
 											     
 											        for (  i = 0 ; i < filas; i++){ //cuenta la cantidad de registros
 											          var nuevafila= "<tr><td>" +
@@ -338,7 +388,7 @@ $(document).on("click", "#btn_agr_prod", function () {
 
 
 
-         	if (cantidad < stockActual) {
+         	if (cantidad <= stockActual) {
 
 		         	 $.ajax({
 					        type: "POST",
@@ -402,6 +452,7 @@ $(document).on("click", "#btn_agr_prod", function () {
 									$('#codigoBarra').val("");
 									$("#codigoBarra").prop('readonly', false);
 									$("#btn_volver_buscar").hide();
+									$('#nom_prod').text(""); 
 									$("#codigoBarra").focus();        
 
 					},
@@ -430,7 +481,8 @@ $(document).on("click", "#btn_volver_buscar", function () {
 		$('#codigoBarra').val("");
 		$("#codigoBarra").prop('readonly', false);
 		$("#btn_volver_buscar").hide();
-		$("#codigoBarra").focus();  
+		$("#codigoBarra").focus(); 
+		$('#nom_prod').text(""); 
 
 });
 
@@ -441,6 +493,7 @@ $(document).ready(function() {
 
          	
          	var cod_prod = $("#codigoBarra").val();
+         	$("#lista_prod").hide();
 
 
          	 $.ajax({
@@ -451,6 +504,7 @@ $(document).ready(function() {
 			        success: function (result) {
 			        if (result != '') {
 			        	$('#stockActual').val(result[0].stock_prod);
+			        	$('#nom_prod').text(result[0].nom_prod);
 						$("#codigoBarra").prop('readonly', true);
 						$("#btn_volver_buscar").show();
 						$("#cantidad").focus(); 

@@ -21,10 +21,16 @@
 			$precio_total_venta =  stripcslashes ($_POST['precio_total_venta']);
 			$precio_total_venta = str_replace(",","",(str_replace(".","",(str_replace("$","",$precio_total_venta)))));
 
-			 if (isset($_POST['obs_venta'])) {
+			if (isset($_POST['obs_venta'])) {
 	          $obs_venta = strtoupper(stripcslashes ($_POST['obs_venta']));
 	        }else{
 	          $obs_venta = '';
+	        }
+
+	        if (isset($_POST['dscto'])) {
+	          $dscto = stripcslashes ($_POST['dscto']);
+	        }else{
+	          $dscto = 0;
 	        }
 
 	        if (isset($_POST['patente_cli'])) {
@@ -45,7 +51,7 @@
 	         $TableData= json_decode($TableData,TRUE);
 
 
-	        $dao = new VentaDAO('',$fec_venta,$est_venta,$precio_total_venta,'','','','','','',$obs_venta, $patente_cli,$km_venta,$TableData);
+	        $dao = new VentaDAO('',$fec_venta,$est_venta,$precio_total_venta,'','','','','','',$obs_venta, $patente_cli,$km_venta,$dscto,$TableData);
 
 				
 			$ing_venta = $dao->ing_venta();

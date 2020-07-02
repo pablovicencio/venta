@@ -92,7 +92,7 @@
                                                
                                                     <h4 class="card-title">Resumen Compra &nbsp;<i class="mdi  mdi-cart"></i></h4>
                                                     <div class="table-responsive m-t-2">
-                                                        <table id="resumenVentaImp" name="resumenVenta" class="display nowrap table table-hover table-striped table-bordered table-sm" cellspacing="0" width="100%">
+                                                        <table id="resumenVentaImp" name="resumenVenta" class="table-striped table-bordered table-responsive-sm" cellspacing="0" width="100%">
                                                             <thead>
                                                                 <tr>
                                                                     <th>Item</th>
@@ -116,7 +116,7 @@
                                                                 <tr>
                                                                 
                                                                   <td><?php echo $i ?></td>
-                                                                  <td><?php echo $row1['nom_prod']?></td>
+                                                                  <td><small><?php echo $row1['nom_prod']?></small></td>
                                                                   <td><?php echo $row1['cant_dventa']?></td>
                                                                   <td><?php echo $row1['desc_item']?></td>
                                                                   

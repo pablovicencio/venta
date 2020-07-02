@@ -1,9 +1,90 @@
- 
+ //////////funcion calculo descuento
+ $(document).ready(function(){
+        $("#dscto").keypress(function(e){
+
+	        if(e.which == 13) {
+
+	        	dscto = $("#dscto").val();
+
+	        	var sumTotal = 0;
+
+
+	        	$(".total").each(function() {
+					var total = $(this).text();
+					// add only if the value is number
+					if(!isNaN(total) && total.length != 0) {
+						sumTotal += parseInt(total);
+					}
+
+				});
+
+		        if ( (dscto!= '')&&(dscto != 'NaN')&&(parseInt(dscto) != 0)) {
+		        	  
+		        	dscto = parseInt(dscto);
+
+		              if ((sumTotal!= '')&&(sumTotal != 'NaN')) {
+		              	
+		              	resTotal = parseInt(sumTotal - dscto);
+		              	$("#resTotal").val(numeral(resTotal).format('$000,000,000,000'));
+
+		              	resIva = parseInt(resTotal * 0.19);
+		              	$("#resIva").val(numeral(resIva).format('$000,000,000,000'));
+
+		              	resNeto = parseInt(resTotal - resIva);
+		              	$("#resNeto").val(numeral(resNeto).format('$000,000,000,000'));
+		              	
+		              	  
+		              } 
+		        }else if((parseInt(dscto) == 0)||(dscto == '')){
+
+		        			    var sumNeto = 0;
+							    var sumIva = 0;
+							    var sumTotal = 0;
+
+
+		        	                $(".total").each(function() {
+									    var total = $(this).text();
+									    // add only if the value is number
+									    if(!isNaN(total) && total.length != 0) {
+									        sumTotal += parseInt(total);
+									    }
+
+									});
+
+									$(".neto").each(function() {
+									    var neto = $(this).text(); 
+									    // add only if the value is number
+									    if(!isNaN(neto) && neto.length != 0) {
+									        sumNeto += parseInt(neto);
+									    }
+									});
+
+									$(".iva").each(function() {
+									    var iva = $(this).text(); 
+									    // add only if the value is number
+									    if(!isNaN(iva) && iva.length != 0) {
+									        sumIva += parseInt(iva);
+									    }
+									});
+
+									$('#resTotal').val(numeral(sumTotal).format('$000,000,000,000')); 
+									$('#resNeto').val(numeral(sumNeto).format('$000,000,000,000'));
+									$('#resIva').val(numeral(sumIva).format('$000,000,000,000')); 
+		        }
+		    }                                                                      
+        }); 
+
+});       
+
+
+
+
 //////////funcion busqueda predictiva por nombre
  $(document).ready(function(){
         $("#codigoBarra").keyup(function(e){
 
         	  $("#lista_prod").empty();
+
                                       
               //obtenemos el texto introducido en el campo de búsqueda
               prod = $("#codigoBarra").val();
@@ -28,6 +109,7 @@
 												          $("#lista_prod").append(nuevafila);
 
 												        }
+												        $("#lista_prod").show();
 	                                                            
 		                    },
 		                    error: function(){
@@ -53,6 +135,8 @@ $(document).on("click", "#btn_ing_venta", function (){
 
             var precio_total_venta = $("#resTotal").val();
             //var tipo_doc_venta = $("#tipoDoc").val();
+
+            var dscto = $("#dscto").val();
 
             var obs_venta = $("#obs_ven").val();
             var patente_cli = $("#patente_cli").val();
@@ -83,7 +167,7 @@ $(document).on("click", "#btn_ing_venta", function (){
             $.ajax({
                 type: "POST",
                 url: "../controles/controlIngVenta.php",
-                data:   { "data" : TableData, "obs_venta":obs_venta,"patente_cli":patente_cli,"km_venta":km_venta, "precio_total_venta":precio_total_venta},
+                data:   { "data" : TableData, "obs_venta":obs_venta,"patente_cli":patente_cli,"km_venta":km_venta, "precio_total_venta":precio_total_venta, "dscto":dscto},
                 cache: false,
                       success: function (result) { 
                         var msg = result.trim();
@@ -115,6 +199,7 @@ $(document).on("click", "#btn_ing_venta", function (){
 										  $('#resNeto').val("");
 										  $('#resIva').val("");
 										  $('#resTotal').val("");
+										  $("#dscto").val("");
 										  window.open('impVenta.php?id='+msg, '_blank'); 
 										  
 
@@ -369,6 +454,11 @@ function del_prod(r) {
 									$('#resIva').val(numeral(sumIva).format('$000,000,000,000')); 
 
 
+									var e = jQuery.Event("keypress");
+									e.which = 13; // # Some key code value
+									$("#dscto").trigger(e);
+
+
 }
 
 
@@ -397,7 +487,8 @@ $(document).on("click", "#btn_agr_prod", function () {
 					        dataType:'json',
 					        success: function (result) { 
 
-					        		 if (result[0].stock_min_prod < (stockActual-cantidad)) {
+
+					        		 if (parseInt(stockActual-cantidad) < parseInt(result[0].stock_min_prod)) {
 					        		 	swal("Stock Minimo", "Luego de esta venta el producto "+result[0].nom_prod+" quedara bajo el stock minimo configurado, contacte al proveedor", "warning"); 
 					        		 }
 					        	
@@ -453,7 +544,11 @@ $(document).on("click", "#btn_agr_prod", function () {
 									$("#codigoBarra").prop('readonly', false);
 									$("#btn_volver_buscar").hide();
 									$('#nom_prod').text(""); 
-									$("#codigoBarra").focus();        
+									$("#codigoBarra").focus();   
+									var e = jQuery.Event("keypress");
+									e.which = 13; // # Some key code value
+									$("#dscto").trigger(e);
+     
 
 					},
 					        error: function(jqXHR, textStatus, errorThrown){

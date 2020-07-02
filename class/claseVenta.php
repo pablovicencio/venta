@@ -20,6 +20,7 @@ class VentaDAO
     private $obs_venta;
     private $id_cli_venta;
     private $km_venta;
+    private $dscto_venta;
     private $data_venta;
 
 
@@ -38,6 +39,7 @@ class VentaDAO
                                     $obs_venta=null,
                                     $id_cli_venta=null,
                                     $km_venta=null,
+                                    $dscto_venta=null,
                                     $data_venta=null) 
                                 {
 
@@ -55,6 +57,7 @@ class VentaDAO
     $this->obs_venta              =$obs_venta;
     $this->id_cli_venta           =$id_cli_venta;
     $this->km_venta               =$km_venta;
+    $this->dscto_venta            =$dscto_venta;
     $this->data_venta             =$data_venta;
 
 
@@ -76,9 +79,9 @@ class VentaDAO
                 $pdo = AccesoDB::getCon();
 
                 $sql_ing_venta = "INSERT INTO venta
-                                    (fec_venta,est_venta,precio_total_venta,obs_venta,id_cli_venta,km_venta)
+                                    (fec_venta,est_venta,precio_total_venta,obs_venta,id_cli_venta,km_venta,dscto_venta)
                                     VALUES
-                                    (:fec_venta, :est_venta, :precio_total_venta, :obs_venta, (select id_cli from clientes where patente_veh_cli = :id_cli_venta), :km_venta)";
+                                    (:fec_venta, :est_venta, :precio_total_venta, :obs_venta, (select id_cli from clientes where patente_veh_cli = :id_cli_venta), :km_venta, :dscto)";
 
 
                 $stmt = $pdo->prepare($sql_ing_venta);
@@ -87,7 +90,8 @@ class VentaDAO
                 $stmt->bindParam(":precio_total_venta", $this->precio_total_venta, PDO::PARAM_INT);
                 $stmt->bindParam(":obs_venta", $this->obs_venta, PDO::PARAM_STR);
                 $stmt->bindParam(":id_cli_venta", $this->id_cli_venta, PDO::PARAM_STR);
-                $stmt->bindParam(":km_venta", $this->km_venta, PDO::PARAM_STR);
+                $stmt->bindParam(":km_venta", $this->km_venta, PDO::PARAM_INT);
+                $stmt->bindParam(":dscto", $this->dscto_venta, PDO::PARAM_INT);
                 $stmt->execute();
 
 

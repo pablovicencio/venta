@@ -110,6 +110,12 @@
                                         
                                     </div>
                                     <div class="col-12 mb-4 justify-content-end">
+                                    <div class="col-sm-6 mt-0 justify-content-end text-right">
+                                        <div class="input-group">
+                                            <div class="input-group-addon">Descuento</i></div>
+                                            <input type="number" class="form-control " id="dscto" name="dscto">
+                                        </div>
+                                    </div>
                                     <div class="col-sm-4 mt-0 justify-content-end text-right">
                                         <div class="input-group">
                                             <div class="input-group-addon">Neto</i></div>

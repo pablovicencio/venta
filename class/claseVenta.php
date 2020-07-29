@@ -118,7 +118,7 @@ class VentaDAO
 
                                 $stmt = $pdo->prepare($sql_det_venta);
                                         $stmt->bindParam("id_prod_det_venta", $prod, PDO::PARAM_INT);
-                                        $stmt->bindParam("cant_dventa", $cant, PDO::PARAM_INT);
+                                        $stmt->bindParam("cant_dventa", $cant, PDO::PARAM_STR);
                                         $stmt->bindParam("precio_uni_dventa", $pre_uni, PDO::PARAM_INT);
                                         $stmt->bindParam("precio_total_dventa", $pre_total, PDO::PARAM_INT);
                                         $stmt->bindParam("id_cab_venta", $id, PDO::PARAM_INT);
@@ -131,7 +131,7 @@ class VentaDAO
                                              where id_prod = :id";
                                 $stmt_stock = $pdo->prepare($sql_stock);
                                     $stmt_stock->bindParam("id", $prod, PDO::PARAM_INT);
-                                    $stmt_stock->bindParam("cant", $cant, PDO::PARAM_INT);
+                                    $stmt_stock->bindParam("cant", $cant, PDO::PARAM_STR);
                                 $stmt_stock->execute();
 
                  }

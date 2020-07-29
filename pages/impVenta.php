@@ -2,6 +2,7 @@
 <?php
  include("../includesPages/headHtml.php");
  $id = stripcslashes ($_GET['id']);
+ $imp = stripcslashes ($_GET['imp']);
 
   require_once '../class/Funciones.php';
   
@@ -146,18 +147,36 @@
                                         
                                     </div>
                                     <div class="col-12 mb-4 justify-content-end">
+
+                              <?php 
+                                  if ($imp == 'impDet') {
+                                            echo '<div class="col-sm-4 mt-0 justify-content-end text-right">
+                                        <div class="input-group">
+                                            <div class="input-group-addon">Descuento</i></div>
+                                            <input type="number" class="form-control " id="dscto" name="dscto" value="'. $row['dscto_venta'].'" readonly>
+                                        </div>
+                                    </div>
                                     <div class="col-sm-4 mt-0 justify-content-end text-right">
                                         <div class="input-group">
                                             <div class="input-group-addon">Neto</i></div>
-                                            <input type="text" class="form-control text-right" id="resNeto" name="resNeto" value="<?php echo $row['neto']?>" readonly>
+                                            <input type="text" class="form-control text-right" id="resNeto" name="resNeto" value="'. $row['neto'].'" readonly>
                                         </div>
                                     </div>
                                     <div class="col-sm-4 mt-0 justify-content-end text-right">
                                         <div class="input-group">
                                             <div class="input-group-addon">IVA</i></div>
-                                            <input type="text" class="form-control text-right" id="resIva" name="resIva" value="<?php echo $row['iva']?>" readonly>
+                                            <input type="text" class="form-control text-right" id="resIva" name="resIva" value="'.  $row['iva'].'" readonly>
                                         </div>
-                                    </div>
+                                    </div>';
+                                          }
+
+
+
+                              ?>
+
+                                    
+
+
                                     <div class="col-sm-4 mt-0 justify-content-end text-right">
                                         <div class="input-group">
                                             <div class="input-group-addon">Total</i></div>

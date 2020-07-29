@@ -1,3 +1,5 @@
+
+
  //////////funcion calculo descuento
  $(document).ready(function(){
         $("#dscto").keypress(function(e){
@@ -84,6 +86,12 @@
         $("#codigoBarra").keyup(function(e){
 
         	  $("#lista_prod").empty();
+        	  if(e.which == 13) {
+
+	        	$('#formBusProd').submit();
+	        	$("#lista_prod").empty();
+
+		    }else{     
 
                                       
               //obtenemos el texto introducido en el campo de búsqueda
@@ -117,7 +125,8 @@
 		                    }
 	                    
 	              });  
-              }                                                                        
+              }
+            }                                                                         
         }); 
 
 });       
@@ -128,90 +137,191 @@
 
 
 
-
 //////////funcion ingresar venta
-$(document).on("click", "#btn_ing_venta", function (){  
+$(document).on("click", "#btn_ing_venta", function (){ 
+
+var imp = $("input[name='optradioImp']:checked").val();
+
+if (($("#resTotal").val()!= '')&&($("#resTotal").val() != 'NaN')) {
+  
 
 
-            var precio_total_venta = $("#resTotal").val();
-            //var tipo_doc_venta = $("#tipoDoc").val();
-
-            var dscto = $("#dscto").val();
-
-            var obs_venta = $("#obs_ven").val();
-            var patente_cli = $("#patente_cli").val();
-            var km_venta = $("#km_veh_cli").val();
-
+        if (($("#patente_cli").val()== '')||($("#patente_cli").val() == 'NaN')) {
+        	swal({
+        		  title: "Cliente",
+        		  text: "La venta no tiene un cliente asociado. Esta seguro de registrarla sin cliente?",
+        		  icon: "warning",
+        		  buttons: ["Cancelar", "Registrar sin cliente"],
+        		  dangerMode: true,
+        		})
+        		.then((willDelete) => {
+        		  if (willDelete) {
+                    var precio_total_venta = $("#resTotal").val();
+                    //var tipo_doc_venta = $("#tipoDoc").val();
         
-            var TableData = new Array();
-
-
-
+                    var dscto = $("#dscto").val();
         
-                                  $('#resumenVenta tr').each(function(row, tr){
-                                        TableData[row]={
-                                          "prod" : $(tr).find('td:eq(0)').text()
-                                            ,"cant" : $(tr).find('td:eq(4)').text()
-                                            , "pre_total" : $(tr).find('td:eq(9)').text()
-                                            , "prov" : $(tr).find('td:eq(10)').text()
-                                        }
-                                        
+                    var obs_venta = $("#obs_ven").val();
+                    var patente_cli = $("#patente_cli").val();
+                    var km_venta = $("#km_veh_cli").val();
+        
+                
+                    var TableData = new Array();
+        
+        
+        
+                
+                                          $('#resumenVenta tr').each(function(row, tr){
+                                                TableData[row]={
+                                                  "prod" : $(tr).find('td:eq(0)').text()
+                                                    ,"cant" : $(tr).find('td:eq(4)').text()
+                                                    , "pre_total" : $(tr).find('td:eq(9)').text()
+                                                    , "prov" : $(tr).find('td:eq(10)').text()
+                                                }
+                                                
+        
+                                            }); 
+                                    
+        
+                    TableData.shift();  // first row will be empty - so remove
+                    TableData = JSON.stringify(TableData);
+        
+                    $('#tbConvertToJSON').val('JSON array: \n\n' + TableData.replace(/},/g, "},\n"));
+                    $.ajax({
+                        type: "POST",
+                        url: "../controles/controlIngVenta.php",
+                        data:   { "data" : TableData, "obs_venta":obs_venta,"patente_cli":patente_cli,"km_venta":km_venta, "precio_total_venta":precio_total_venta, "dscto":dscto},
+                        cache: false,
+                              success: function (result) { 
+                                var msg = result.trim();
+        
+        									switch(msg) {
+        							          case '-1':
+        							              swal("Error Base de Datos", "Error de base de datos, comuniquese con el administrador", "warning");
+        							              break;
+        							          default:
+        							              swal("Registro de Venta","Venta registrada correctamente!", "success");
+        							              $("#patente_cli").prop('readonly', false);
+        										  $("#btn_buscar_cli").show();
+        										  $("#btn_volver_buscar_cli").hide();
+        										  $("#dat_bus_cli").hide();
+        										  $("#btn_mod_cli").hide();
+        										  $("#btn_cre_cli").hide();
+        
+        										  $('#tabla_mov tbody').empty();
+        										  $('#formBusCli').trigger("reset");
+        
+        										  $('#stockActual').val("");
+        										  $('#cantidad').val("");
+        										  $('#codigoBarra').val("");
+        										  $("#codigoBarra").prop('readonly', false);
+        										  $("#btn_volver_buscar").hide();
+        										  $('#obs_ven').val("");
+        										  $("#codigoBarra").focus();  
+        										  $('#resumenVenta tbody').empty();
+        										  $('#resNeto').val("");
+        										  $('#resIva').val("");
+        										  $('#resTotal').val("");
+        										  $("#dscto").val("");
+        										  window.open('impVenta.php?id='+msg+'&imp='+imp, '_blank'); 
+        										  
+        
+        										  
+        
+        							            }     
+                              },
+                              error: function(){
+                                      alert('Verifique los datos');      
+                              }
+        
+                    });
+        		  } 
+        		});
+        }else{
+        	        var precio_total_venta = $("#resTotal").val();
+                    //var tipo_doc_venta = $("#tipoDoc").val();
+        
+                    var dscto = $("#dscto").val();
+        
+                    var obs_venta = $("#obs_ven").val();
+                    var patente_cli = $("#patente_cli").val();
+                    var km_venta = $("#km_veh_cli").val();
+        
+                
+                    var TableData = new Array();
+        
+        
+        
+                
+                                          $('#resumenVenta tr').each(function(row, tr){
+                                                TableData[row]={
+                                                  "prod" : $(tr).find('td:eq(0)').text()
+                                                    ,"cant" : $(tr).find('td:eq(4)').text()
+                                                    , "pre_total" : $(tr).find('td:eq(9)').text()
+                                                    , "prov" : $(tr).find('td:eq(10)').text()
+                                                }
+                                                
+        
+                                            }); 
+                                    
+        
+                    TableData.shift();  // first row will be empty - so remove
+                    TableData = JSON.stringify(TableData);
+        
+                    $('#tbConvertToJSON').val('JSON array: \n\n' + TableData.replace(/},/g, "},\n"));
+                    $.ajax({
+                        type: "POST",
+                        url: "../controles/controlIngVenta.php",
+                        data:   { "data" : TableData, "obs_venta":obs_venta,"patente_cli":patente_cli,"km_venta":km_venta, "precio_total_venta":precio_total_venta, "dscto":dscto},
+                        cache: false,
+                              success: function (result) { 
+                                var msg = result.trim();
+        
+        									switch(msg) {
+        							          case '-1':
+        							              swal("Error Base de Datos", "Error de base de datos, comuniquese con el administrador", "warning");
+        							              break;
+        							          default:
+        							              swal("Registro de Venta","Venta registrada correctamente!", "success");
+        							              $("#patente_cli").prop('readonly', false);
+        										  $("#btn_buscar_cli").show();
+        										  $("#btn_volver_buscar_cli").hide();
+        										  $("#dat_bus_cli").hide();
+        										  $("#btn_mod_cli").hide();
+        										  $("#btn_cre_cli").hide();
+        
+        										  $('#tabla_mov tbody').empty();
+        										  $('#formBusCli').trigger("reset");
+        
+        										  $('#stockActual').val("");
+        										  $('#cantidad').val("");
+        										  $('#codigoBarra').val("");
+        										  $("#codigoBarra").prop('readonly', false);
+        										  $("#btn_volver_buscar").hide();
+        										  $('#obs_ven').val("");
+        										  $("#codigoBarra").focus();  
+        										  $('#resumenVenta tbody').empty();
+        										  $('#resNeto').val("");
+        										  $('#resIva').val("");
+        										  $('#resTotal').val("");
+        										  $("#dscto").val("");
+        										  window.open('impVenta.php?id='+msg+'&imp='+imp, '_blank'); 
+        										  
+        
+        										  
+        
+        							            }     
+                              },
+                              error: function(){
+                                      alert('Verifique los datos');      
+                              }
+        
+                    });
+        }
 
-                                    }); 
-                            
-
-            TableData.shift();  // first row will be empty - so remove
-            TableData = JSON.stringify(TableData);
-
-            $('#tbConvertToJSON').val('JSON array: \n\n' + TableData.replace(/},/g, "},\n"));
-            $.ajax({
-                type: "POST",
-                url: "../controles/controlIngVenta.php",
-                data:   { "data" : TableData, "obs_venta":obs_venta,"patente_cli":patente_cli,"km_venta":km_venta, "precio_total_venta":precio_total_venta, "dscto":dscto},
-                cache: false,
-                      success: function (result) { 
-                        var msg = result.trim();
-
-									switch(msg) {
-							          case '-1':
-							              swal("Error Base de Datos", "Error de base de datos, comuniquese con el administrador", "warning");
-							              break;
-							          default:
-							              swal("Registro de Venta","Venta registrada correctamente!", "success");
-							              $("#patente_cli").prop('readonly', false);
-										  $("#btn_buscar_cli").show();
-										  $("#btn_volver_buscar_cli").hide();
-										  $("#dat_bus_cli").hide();
-										  $("#btn_mod_cli").hide();
-										  $("#btn_cre_cli").hide();
-
-										  $('#tabla_mov tbody').empty();
-										  $('#formBusCli').trigger("reset");
-
-										  $('#stockActual').val("");
-										  $('#cantidad').val("");
-										  $('#codigoBarra').val("");
-										  $("#codigoBarra").prop('readonly', false);
-										  $("#btn_volver_buscar").hide();
-										  $('#obs_ven').val("");
-										  $("#codigoBarra").focus();  
-										  $('#resumenVenta tbody').empty();
-										  $('#resNeto').val("");
-										  $('#resIva').val("");
-										  $('#resTotal').val("");
-										  $("#dscto").val("");
-										  window.open('impVenta.php?id='+msg, '_blank'); 
-										  
-
-										  
-
-							            }     
-                      },
-                      error: function(){
-                              alert('Verifique los datos');      
-                      }
-
-            });
+}else{
+	swal("Ingresa los datos", "Revisa los datos ingresados", "error");
+}
             
  
   });
@@ -466,11 +576,11 @@ function del_prod(r) {
 //////////funcion agregar producto
 $(document).on("click", "#btn_agr_prod", function () {
 
-    if ((cantidad!= '')&&(cantidad != 'NaN')) {
+    if (($("#cantidad").val()!= '')&&($("#cantidad").val() != 'NaN')) {
 
          	var cod_prod = $("#codigoBarra").val();
-         	var stockActual = parseInt($("#stockActual").val());
-         	var cantidad = parseInt($("#cantidad").val());
+         	var stockActual = parseFloat($("#stockActual").val());
+         	var cantidad = parseFloat($("#cantidad").val());
 
          	var sumNeto = 0;
     		var sumIva = 0;
@@ -488,7 +598,7 @@ $(document).on("click", "#btn_agr_prod", function () {
 					        success: function (result) { 
 
 
-					        		 if (parseInt(stockActual-cantidad) < parseInt(result[0].stock_min_prod)) {
+					        		 if (parseFloat(stockActual-cantidad) < parseFloat(result[0].stock_min_prod)) {
 					        		 	swal("Stock Minimo", "Luego de esta venta el producto "+result[0].nom_prod+" quedara bajo el stock minimo configurado, contacte al proveedor", "warning"); 
 					        		 }
 					        	

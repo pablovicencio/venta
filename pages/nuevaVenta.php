@@ -63,7 +63,7 @@
                                         <div class="col-sm-2 mt-1">
                                             <div class="input-group">
                                                 <div class="input-group-addon"><i class="mdi mdi-numeric"></i></div>
-                                                <input type="number" class="form-control" id="cantidad" name="cantidad" placeholder="Cantidad">
+                                                <input type="number" class="form-control" id="cantidad" name="cantidad" placeholder="0.0" step="any">
                                             </div>
                                         </div>
                                         <div class="col-sm-2 mt-1">
@@ -72,6 +72,15 @@
                                                 <div class="input-group-addon"><i class="mdi mdi-database"></i></div>
                                             </div>
                                         </div>
+
+                                        <div class="col-sm-2 mt-1">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" id="precio" name="precio" placeholder="Precio">
+                                                <div class="input-group-addon"><i class="mdi mdi-cash"></i></div>
+                                            </div>
+                                        </div>
+
+
                                         <div class="col-sm-2 mt-1">
                                             <button type="" class="btn btn-inverse" id="btn_agr_prod" name="btn_agr_prod"> <i class="fa fa-pencil"></i> Agregar</button>
                                         </div>
@@ -105,15 +114,13 @@
                                                     
                                                 </div>
 
-                                        </div>
-
-                                        
+                                        </div> 
                                     </div>
-                                    <div class="col-12 mb-4 justify-content-end">
-                                    <div class="col-sm-6 mt-0 justify-content-end text-right">
+                                  <div class="col-12 mb-4 justify-content-end">
+                                    <div class="col-sm-8 mt-0 justify-content-end text-right">
                                         <div class="input-group">
                                             <div class="input-group-addon">Descuento</i></div>
-                                            <input type="number" class="form-control " id="dscto" name="dscto">
+                                            <input type="number" class="form-control " id="dscto" name="dscto"><span> *Presiona Enter para aplicar el Descuento</span>
                                         </div>
                                     </div>
                                     <div class="col-sm-4 mt-0 justify-content-end text-right">
@@ -136,6 +143,16 @@
                                     </div>
 
                                 </div>
+
+
+
+                                    <input type="radio" id="impDet" name="optradioImp" value="impDet" checked >
+                                      <label for="impDet">Imprimir Detalle total </label><br>
+                                    <input type="radio" id="impRes" name="optradioImp" value="impRes">
+                                      <label for="impRes">Imprimir solo total venta</label><br>
+
+
+
                                 <div class="row">
                                   <div class="col-12">
                                     <h5 class="card-title">Observaciones <i class="fa fa-clipboard" aria-hidden="true"></i></h5>

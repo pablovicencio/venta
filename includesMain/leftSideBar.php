@@ -19,7 +19,7 @@
 
                         <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-cart"></i><span class="hide-menu">Ventas</span></a>
                             <ul aria-expanded="false" class="collapse">
-                                <li><a href="http://localhost/venta/pages/nuevaVenta.php">Nueva Venta</a></li>
+                                <li><a href="https://andescode.cl/venta/pages/nuevaVenta.php">Nueva Venta</a></li>
                                 <li><a href="#">Historial</a></li>
                                 <li><a href="#">Resúmen</a></li>
                             </ul>
@@ -27,7 +27,7 @@
                         <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-barcode-scan"></i><span class="hide-menu">Productos</span></a>
                             <ul aria-expanded="false" class="collapse">
                                 <li><a href="#">Listado </a></li>
-                                <li><a href="http://localhost/venta/pages/nuevoProducto.php">Agregar</a></li>
+                                <li><a href="https://andescode.cl/venta/pages/nuevoProducto.php">Agregar</a></li>
                                 <li><a href="#">Modificar</a></li>
                                 <li><a href="#">Stock</a></li>
                             </ul>

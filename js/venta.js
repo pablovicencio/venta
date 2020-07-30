@@ -580,6 +580,10 @@ $(document).on("click", "#btn_agr_prod", function () {
 
          	var cod_prod = $("#codigoBarra").val();
          	var stockActual = parseFloat($("#stockActual").val());
+          var precio = parseInt($("#precio").val());
+          var iva = parseInt(precio * 0.19);
+          var neto = parseInt(precio - iva);
+
          	var cantidad = parseFloat($("#cantidad").val());
 
          	var sumNeto = 0;
@@ -609,11 +613,11 @@ $(document).on("click", "#btn_agr_prod", function () {
                         							result[0].marca_prod + "</td><td>" +
                         							result[0].cod_barra_prod + "</td><td>" +
                         							cantidad + "</td><td>" +
-                        							numeral(result[0].precio).format('$000,000,000,000') + "</td><td>" +
-                        							numeral(result[0].precio * cantidad).format('$000,000,000,000') + "</td><td style='display:none' class='neto'>" +
-                        							(result[0].precio_neto_prod * cantidad) + "</td><td style='display:none' class='iva'>" +
-                        							(result[0].iva_prod * cantidad) + "</td><td style='display:none' class='total'>" +
-                        							(result[0].precio * cantidad) + "</td><td style='display:none'>" +
+                        							numeral(precio).format('$000,000,000,000') + "</td><td>" +
+                        							numeral(precio * cantidad).format('$000,000,000,000') + "</td><td style='display:none' class='neto'>" +
+                        							(neto * cantidad) + "</td><td style='display:none' class='iva'>" +
+                        							(iva * cantidad) + "</td><td style='display:none' class='total'>" +
+                        							(precio * cantidad) + "</td><td style='display:none'>" +
                         							(result[0].id_prov_prod) + "</td><td>" +
                         							'<button id="btn__prod" name="btn_del_prod" class="btn btn-warning" onclick="del_prod(this)"><i class="mdi mdi-table-edit" aria-hidden="true"></i></button></td></tr>'
 
@@ -709,6 +713,7 @@ $(document).ready(function() {
 			        success: function (result) {
 			        if (result != '') {
 			        	$('#stockActual').val(result[0].stock_prod);
+                $('#precio').val(result[0].precio);
 			        	$('#nom_prod').text(result[0].nom_prod);
 						$("#codigoBarra").prop('readonly', true);
 						$("#btn_volver_buscar").show();

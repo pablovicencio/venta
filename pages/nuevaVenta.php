@@ -75,8 +75,8 @@
 
                                         <div class="col-sm-2 mt-1">
                                             <div class="input-group">
-                                                <input type="text" class="form-control" id="precio" name="precio" placeholder="Precio">
                                                 <div class="input-group-addon"><i class="mdi mdi-cash"></i></div>
+                                                <input type="number" class="form-control" id="precio" name="precio" placeholder="Precio">
                                             </div>
                                         </div>
 

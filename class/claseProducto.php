@@ -99,26 +99,59 @@ class ProductoDAO
 
 
     /*///////////////////////////////////////
-    Ingresar producto
+    Crear producto
     //////////////////////////////////////*/
-    public function ing_prod() {
+    public function cre_prod() {
 
 
         try{
              
-                //$pdo = AccesoDB::getCon();
+                $pdo = AccesoDB::getCon();
 
-                //$sql_ing_prod = "";
+                $sql_cre_prod = "INSERT INTO `producto`
+                                (`nom_prod`,`uni_med_pro`,`stock_min_prod`,`stock_prod`,`vig_prod`,`fec_cre_prod`,`usu_cre_prod`,`precio_bruto_prod`,
+                                `iva_prod`,`proc_ganan_prod`,`precio_neto_prod`,`id_prov_prod`,`embalaje_prod`,`cod_barra_prod`,`familia_prod`,`marca_prod`,
+                                `precio_compra_neto`,`porc_dscto_compra`,`valor_dcto_compra`,`precio_compra_neto_dscto`,`iva_compra`,`precio_total_compra`,`valor_ganancia`,`precio_venta_calc`)
+                                VALUES
+                                (:nom_prod,:uni_med_pro,:stock_min_prod,0,:vig_prod,:fec_cre_prod,:usu_cre_prod,:precio_bruto_prod,:iva_prod,:proc_ganan_prod,:precio_neto_prod,:id_prov_prod,
+                                :embalaje_prod,:cod_barra_prod,:familia_prod,:marca_prod,:precio_compra_neto,:porc_dscto_compra,:valor_dcto_compra,:precio_compra_neto_dscto,
+                                :iva_compra,:precio_total_compra,:valor_ganancia,:precio_venta_calc);";
 
 
-                //$stmt = $pdo->prepare($sql_ing_prod);
-                //$stmt->bindParam(":", , PDO::PARAM_INT);
+                $stmt = $pdo->prepare($sql_cre_prod);
+                $stmt->bindParam(":nom_prod", $this->nom_prod, PDO::PARAM_STR);
+                $stmt->bindParam(":uni_med_pro", $this->uni_med_pro, PDO::PARAM_INT);
+                $stmt->bindParam(":stock_min_prod", $this->stock_min_prod, PDO::PARAM_INT);
+                $stmt->bindParam(":vig_prod", $this->vig_prod, PDO::PARAM_INT);
+                $stmt->bindParam(":fec_cre_prod", $this->fec_cre_prod, PDO::PARAM_STR);
+                $stmt->bindParam(":usu_cre_prod", $this->usu_cred_prod, PDO::PARAM_INT);
+                $stmt->bindParam(":precio_bruto_prod", $this->precio_bruto_prod, PDO::PARAM_INT);
+                $stmt->bindParam(":iva_prod", $this->iva_prod, PDO::PARAM_INT);
+                $stmt->bindParam(":proc_ganan_prod", $this->porc_ganan_prod, PDO::PARAM_INT);
+                $stmt->bindParam(":precio_neto_prod", $this->precio_neto_prod, PDO::PARAM_INT);
+                $stmt->bindParam(":id_prov_prod", $this->id_prov, PDO::PARAM_INT);
+                $stmt->bindParam(":embalaje_prod", $this->embalaje_prod, PDO::PARAM_INT);
+                $stmt->bindParam(":cod_barra_prod", $this->cod_barra_prod, PDO::PARAM_STR);
+                $stmt->bindParam(":familia_prod", $this->familia_prod, PDO::PARAM_INT);
+                $stmt->bindParam(":marca_prod", $this->marca_prod, PDO::PARAM_STR);
+                $stmt->bindParam(":precio_compra_neto", $this->precio_compra_neto, PDO::PARAM_INT);
+                $stmt->bindParam(":porc_dscto_compra", $this->porc_dscto_compra, PDO::PARAM_INT);
+                $stmt->bindParam(":valor_dcto_compra", $this->valor_dscto_compra, PDO::PARAM_INT);
+                $stmt->bindParam(":precio_compra_neto_dscto", $this->precio_compra_neto_dscto, PDO::PARAM_INT);
+                $stmt->bindParam(":iva_compra", $this->iva_compra, PDO::PARAM_INT);
+                $stmt->bindParam(":precio_total_compra", $this->precio_total_compra, PDO::PARAM_INT);
+                $stmt->bindParam(":valor_ganancia", $this->valor_ganancia, PDO::PARAM_INT);
+                $stmt->bindParam(":precio_venta_calc", $this->precio_venta_calc, PDO::PARAM_INT);
+                $stmt->execute();
+
+
+
+
+
+
+                     return $stmt->rowCount();
                 
-                //$stmt->execute();
 
-                
-                
-                //return $stmt->rowCount();
                  
         
 

@@ -301,6 +301,12 @@ $(document).on("click", "#btn_agr_prod", function () {
 $(document).ready(function() {
   $("#formModProd").submit(function() { 
 
+           var btn = $(document.activeElement).attr('id');
+
+
+      if (btn == 'btn_guar_prod') {
+
+
            $.ajax({
               type: "POST",
               url: '../controles/controlModProd.php',
@@ -324,11 +330,44 @@ $(document).ready(function() {
                                     $("#codigoBarra").prop('readonly', true);
                           }          
 
-      },
-              error: function(jqXHR, textStatus, errorThrown){
-                      alert("ERROR: "+jqXHR.responseText);      
-              }
-      });
+            },
+                    error: function(jqXHR, textStatus, errorThrown){
+                            alert("ERROR: "+jqXHR.responseText);      
+                    }
+            });
+
+      }else if(btn == 'btn_cre_prod'){
+
+            var codigoBarra = $("#codigoBarra").val();
+
+            $.ajax({
+              type: "POST",
+              url: '../controles/controlCrearProd.php',
+              data:$("#formModProd").serialize()+ "&codigoBarra="+codigoBarra,
+              success: function (result) { 
+                          var msg = result.trim();
+
+                      switch(msg) {
+                        case '-1':
+                            swal("Error", "No se ha creado el producto, comuniquese con el administrador", "warning");
+                            break;
+                        default:
+                            swal("Producto Creado", msg, "success");
+                                    
+
+                                    $("#btn_cre_prod").hide();
+
+                                    $("#btn_agr_prod").trigger("click");
+                          }          
+
+            },
+                    error: function(jqXHR, textStatus, errorThrown){
+                            alert("ERROR: "+jqXHR.responseText);      
+                    }
+            });
+
+
+      }
 
 
    });
@@ -350,7 +389,7 @@ if ( ($("#codigoBarra").val()!= '')&&($("#codigoBarra").val() != 'NaN')) {
         $(".ro").prop('readonly', false);
         $("#codigoBarra").prop('readonly', true);
 }else{
-  swal("Datos Ingresados", "Selecciona un Producto", "warning");
+  swal("Error Datos", "Selecciona un Producto", "warning");
 }
            
             
@@ -365,6 +404,7 @@ $(document).on("click", "#btn_volver_buscar", function () {
     $('#cantidad').val("");
     $("#codigoBarra").prop('readonly', false);
     $("#btn_volver_buscar").hide();
+    $("#btn_cre_prod").hide();
     $("#codigoBarra").focus(); 
 
     $("#btn_mod_prod").show();
@@ -479,7 +519,19 @@ $(document).ready(function() {
             $("#codigoBarra").prop('readonly', true);
             //$("#cantidad").focus(); 
               }else{
-                swal("Producto no encontrado", "Verifique el codigo del producto", "error"); 
+                swal("Producto no encontrado", "Debe crear el Producto", "warning"); 
+                $("#btn_mod_prod").hide();
+                $("#btn_agr_prod").hide();
+                $("#btn_guar_prod").hide();
+                //$("#cantidad").prop('readonly', true);
+
+                $("#btn_cre_prod").show();
+
+                $(".ro").prop('readonly', false);
+                $("#codigoBarra").prop('readonly', true);
+                $("#nombreProd").prop('readonly', false);
+
+
               }
 
                        

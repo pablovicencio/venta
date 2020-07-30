@@ -301,6 +301,8 @@
                                                         <button type="button" class="btn btn-warning" name="btn_mod_prod" id="btn_mod_prod" >Modificar Producto</button>
                                                       
                                                         <button type="submit" class="btn btn-success" name="btn_guar_prod" id="btn_guar_prod" style="display: none"> <i class="fa fa-pencil"></i> Guardar Producto</button>
+
+                                                        <button type="submit" class="btn btn-success" name="btn_cre_prod" id="btn_cre_prod" style="display: none"> <i class="fa fa-pencil"></i> Crear Producto</button>
                                                         
                                                     </div>
                                                 </div>

@@ -1,3 +1,6 @@
+<?php 
+  include("../includesPages/validaSesion.php")
+?>
 <!-- Include del Head HTML INCLUYE LIBRERIAS EXTERNAS -->
 <?php
  include("../includesPages/headHtmlIng.php");
@@ -303,6 +306,8 @@
                                                         <button type="submit" class="btn btn-success" name="btn_guar_prod" id="btn_guar_prod" style="display: none"> <i class="fa fa-pencil"></i> Guardar Producto</button>
                                                         
                                                         <button type="submit" class="btn btn-success" name="btn_cre_prod" id="btn_cre_prod" style="display: none"> <i class="fa fa-pencil"></i> Crear Producto</button>
+                                                        
+                                                        <a id="btn_modal_cod_prod" class="link-modal btn btn-outline-success" data-toggle="modal" data-target="#modal_cod_barra"> <i class="mdi mdi-barcode-scan"></i> Codigos de Barra</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -395,7 +400,61 @@
         </div>
     </div>
 
+<div class="modal fade" id="modal_cod_barra" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
 
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Códigos de barra</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="col-12">
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered" id="tabla_cod_barra" name="tabla_cod_barra">
+                    <thead>
+                        <tr>
+                            <th scope="col">Código</th>
+                            <th scope="col">Eliminar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>          
+      </div>
+
+      <div class="modal-footer">
+        <a id="btn_modal_agregar_cod_prod" class="link-modal btn btn-outline-success" data-toggle="modal" data-target="#modal_agregar_cod_barra">Agregar Nuevo</a>
+        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modal_agregar_cod_barra" name="modal_agregar_cod_barra" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="col-12">
+        <div class="form-group">
+            <label for="cod_barra">Ingresa el codigo de barra a registrar</label>
+            <input type="text" class="form-control" id="cod_barra_agregar" name="cod_barra_agregar"  required>
+        </div>
+        </div>          
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" id="btn_agregar_cod_barra" name="btn_agregar_cod_barra" class="btn btn-outline-success" >Agregar</button>
+        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
 
     <!-- All Jquery -->
     <?php

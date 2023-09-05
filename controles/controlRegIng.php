@@ -1,14 +1,14 @@
 <?php
- // session_start();
+ session_start();
 
- // if( isset($_SESSION['id']) and ($_SESSION['perfil'] <> 0) ){
- //    //Si la sesión esta seteada no hace nada
- //    $id = $_SESSION['id'];
- //  }
- //  else{
- //    //Si no lo redirige a la pagina index para que inicie la sesion 
- //    header("location: ../index.html");
- //  }  
+ if( isset($_SESSION['id']) ){
+    //Si la sesión esta seteada no hace nada
+    $id = $_SESSION['id'];
+  }
+  else{
+    //Si no lo redirige a la pagina index para que inicie la sesion 
+    header("location: ../index.html");
+  }  
 
 	require_once '../class/claseIngreso.php';
 
@@ -40,7 +40,7 @@
 	         $TableData= json_decode($TableData,TRUE);
 
 
-	        $dao = new IngresoDAO('',$fec_ing,$est_ing,$precio_total_ing,$tipo_doc,$nro_doc,1,'','','',$TableData);
+	        $dao = new IngresoDAO('',$fec_ing,$est_ing,$precio_total_ing,$tipo_doc,$nro_doc,$id,'','','',$TableData);
 
 				
 			$reg_ing = $dao->reg_ing();

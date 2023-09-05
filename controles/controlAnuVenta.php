@@ -1,14 +1,14 @@
 <?php
- // session_start();
+ session_start();
 
- // if( isset($_SESSION['id']) and ($_SESSION['perfil'] <> 0) ){
- //    //Si la sesión esta seteada no hace nada
- //    $id = $_SESSION['id'];
- //  }
- //  else{
- //    //Si no lo redirige a la pagina index para que inicie la sesion 
- //    header("location: ../index.html");
- //  }  
+ if( isset($_SESSION['id']) ){
+    //Si la sesión esta seteada no hace nada
+    $id = $_SESSION['id'];
+  }
+  else{
+    //Si no lo redirige a la pagina index para que inicie la sesion 
+    header("location: ../index.html");
+  }  
 
 	require_once '../class/claseVenta.php';
 
@@ -17,7 +17,7 @@
 		 	$id_ven = $_POST['id_venta_anu'];
 			$fec_anu = date("Y-m-d h:m:s", time());
 			$est_venta = 2;
-			$usu_anu_venta = 1;
+			$usu_anu_venta = $id;
 			$obs = '';
 			
 			

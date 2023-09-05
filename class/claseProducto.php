@@ -174,6 +174,22 @@ class ProductoDAO
              
                 $pdo = AccesoDB::getCon();
 
+
+
+                $sql_log_prod = "INSERT INTO `log_precio`
+                                (`cod_producto`,`usu_log`,`precio_anterior`,`precio_nuevo`)
+                                VALUES
+                                (:id_prod, :usu, (select precio_bruto_prod from producto where id_prod = :id_prod),:precio);";
+
+                $stmt = $pdo->prepare($sql_log_prod);
+                $stmt->bindParam(":id_prod", $this->id_prod, PDO::PARAM_INT);
+                $stmt->bindParam(":usu", $this->usu_cred_prod, PDO::PARAM_INT);
+                $stmt->bindParam(":precio", $this->precio_bruto_prod, PDO::PARAM_INT);
+                $stmt->execute();
+
+
+
+
                 $sql_mod_prod = "UPDATE producto
                                 SET
                                 nom_prod = :nom_prod,

@@ -1,14 +1,14 @@
 <?php
- // session_start();
+ session_start();
 
- // if( isset($_SESSION['id']) and ($_SESSION['perfil'] <> 0) ){
- //    //Si la sesión esta seteada no hace nada
- //    $id = $_SESSION['id'];
- //  }
- //  else{
- //    //Si no lo redirige a la pagina index para que inicie la sesion 
- //    header("location: ../index.html");
- //  }  
+ if( isset($_SESSION['id']) ){
+    //Si la sesión esta seteada no hace nada
+    $id = $_SESSION['id'];
+  }
+  else{
+    //Si no lo redirige a la pagina index para que inicie la sesion 
+    header("location: ../index.html");
+  }   
 
 	require_once '../class/claseVenta.php';
 
@@ -63,7 +63,7 @@
 	         $TableData= json_decode($TableData,TRUE);
 
 
-	        $dao = new VentaDAO('',$fec_venta,$est_venta,$precio_total_venta,'','','','','','',$obs_venta, $patente_cli,$km_venta,$dscto,$km_prox,$cond_pago,$TableData);
+	        $dao = new VentaDAO('',$fec_venta,$est_venta,$precio_total_venta,'','',$id,'','','',$obs_venta, $patente_cli,$km_venta,$dscto,$km_prox,$cond_pago,$TableData);
 
 				
 			$ing_venta = $dao->ing_venta();

@@ -4,7 +4,7 @@
                 <!-- Logo -->
                 <!-- ============================================================== -->
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="index.html">
+                    <a class="navbar-brand" href="#">
                         <!-- Logo icon --><b>
                             <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
                             <!-- Dark Logo icon -->
@@ -38,22 +38,22 @@
                     <ul class="navbar-nav my-lg-0">
                         <!-- ============================================================== -->
                         <!-- Search -->
-                        <!-- ============================================================== -->
+                        <!-- ============================================================== 
                         <li class="nav-item hidden-xs-down search-box"> <a class="nav-link hidden-sm-down waves-effect waves-dark" href="javascript:void(0)"><i class="ti-search"></i></a>
                             <form class="app-search">
                                 <input type="text" class="form-control" placeholder="Search & enter"> <a class="srh-btn"><i class="ti-close"></i></a> </form>
-                        </li>
+                        </li>-->
 
 
                         <!-- ============================================================== -->
                         <!-- Language -->
-                        <!-- ============================================================== -->
+                        <!-- ============================================================== 
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="flag-icon flag-icon-cl"></i></a>
                             <div class="dropdown-menu dropdown-menu-right animated bounceInDown"> 
                                 <a class="dropdown-item" href="#"><i class="flag-icon flag-icon-us"></i> English</a>
                             </div>
-                        </li>
+                        </li>-->
                         <!-- ============================================================== -->
                         <!-- Profile -->
                         <!-- ============================================================== -->
@@ -65,17 +65,19 @@
                                         <div class="dw-user-box">
                                             <div class="u-img"><i class="mdi mdi-account"></i></div>
                                             <div class="u-text">
-                                                <h4>Usuario Prueba</h4>
-                                                <p class="text-muted">test@mail.com</p><a href="pages-profile.html" class="btn btn-rounded btn-danger btn-sm">Ver Datos</a></div>
+                                                <h4><?php echo  $nom_usu;   ?></h4>
+                                                <p class="text-muted"><?php echo  $correo_usu;   ?></p>
+                                                <!--<a href="pages-profile.html" class="btn btn-rounded btn-danger btn-sm">Ver Datos</a>-->
+                                            </div>
                                         </div>
                                     </li>
                                     <li role="separator" class="divider"></li>
-                                    <li><a href="#"><i class="ti-user"></i> Mi Perfil</a></li>
+                                    <!--<li><a href="#"><i class="ti-user"></i> Mi Perfil</a></li>
                                     <li><a href="#"><i class="ti-wallet"></i> Mis Datos</a></li>
                                     <li><a href="#"><i class="ti-email"></i> Notificaciones</a></li>
                                     <li role="separator" class="divider"></li>
                                     <li><a href="#"><i class="ti-settings"></i> Configuración</a></li>
-                                    <li role="separator" class="divider"></li>
+                                    <li role="separator" class="divider"></li>-->
                                     <li><a href="#"><i class="fa fa-power-off"></i> Logout</a></li>
                                 </ul>
                             </div>

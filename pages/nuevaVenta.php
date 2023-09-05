@@ -1,3 +1,6 @@
+<?php 
+  include("../includesPages/validaSesion.php")
+?>
 <!-- Include del Head HTML INCLUYE LIBRERIAS EXTERNAS -->
 <?php
  include("../includesPages/headHtml.php");
@@ -67,18 +70,25 @@
 
                             <div class="card-body">
 
-
-
-
                             <h4 class="card-title">Producto</h4>
-                                <form id="formBusProd" name="formBusProd" onsubmit="return false;" class="form-horizontal p-t-20"  autocomplete="off">
+                                <form id="formCodProd" name="formCodProd" onsubmit="return false;" class="form-horizontal p-t-20"  autocomplete="off">
                                     <div class="form-group row">
                                         <div class="col-sm-6">
                                             <div class="input-group">
                                                 <div class="input-group-addon"><i class="mdi mdi-barcode-scan"></i></div>
-                                                <input type="text" class="form-control" name="codigoBarra" id="codigoBarra" placeholder="Escanéa el Código o Agrega el ID Fijo">
+                                                <input type="text" class="form-control" name="codBarra" id="codBarra" placeholder="Escanéa el código de barras">
                                                 <button class="btn btn-warning" type="button" id="btn_volver_buscar"
                                                 name="btn_volver_buscar" style="display: none"><i class="fa fa-reply" aria-hidden="true"></i></button>
+                                            </div>
+                                        </div>                                   
+                                    </div>
+                                </form>
+                                <form id="formBusProd" name="formBusProd" onsubmit="return false;" class="form-horizontal p-t-20"  autocomplete="off">
+                                    <div class="form-group row">
+                                        <div class="col-sm-6">
+                                            <div class="input-group">
+                                                <div class="input-group-addon"><i class="mdi mdi-account-search"></i></div>
+                                                <input type="text" class="form-control" name="codigoBarra" id="codigoBarra" placeholder="Busca por el nombre">
                                                  <span id="nom_prod" name="nom_prod"></span>
                                             </div>
 
@@ -190,11 +200,12 @@
                                       <label for="impDet">Imprimir Detalle total </label><br>
                                     <input type="radio" id="impRes" name="optradioImp" value="impRes">
                                       <label for="impRes">Imprimir solo total venta</label><br><br>
-                                      
-                                      
-                                      <input type="checkbox" style="position: static; opacity: 100;"  name="datCta" id="datCta" value="1">Incluir Datos Cuenta
+
+                                
+                                    <input type="checkbox" style="position: static; opacity: 100;"  name="datCta" id="datCta" value="1">Incluir Datos Cuenta
 
                                     <br><br>
+                                  
 
 
 

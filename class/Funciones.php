@@ -5,6 +5,151 @@ require_once '../recursos/db/db.php';
 
 class Funciones 
 {
+
+    /*///////////////////////////////////////
+    Crear codigo de barraa
+    //////////////////////////////////////*/
+    public function crear_cod_barra($cod, $prod){
+        try{
+           
+           
+           $pdo = AccesoDB::getCon();  
+          
+           $sql = "INSERT INTO `cod_barra_prod`
+                                (`cod_barra`,`vig_cod`,`id_prod_cod_barra`)
+                                VALUES
+                                (:cod, 1, :prod);";
+            
+           $stmt = $pdo->prepare($sql);
+           $stmt->bindParam(":cod", $cod, PDO::PARAM_STR);
+           $stmt->bindParam(":prod", $prod, PDO::PARAM_STR);
+           $stmt->execute();
+           return $stmt->rowCount();
+       } catch (Exception $e) {
+           echo"-1";
+            //echo"<script type=\"text/javascript\">alert('Error, comuniquese con el administrador".  $e->getMessage()." '); window.location='../../index.html';</script>";
+       }
+   }
+
+
+    /*///////////////////////////////////////
+    Cargar codigos de barra de un producto
+    //////////////////////////////////////*/
+    public function cargar_cods_barra_prod($prod){
+        try{
+           
+           
+           $pdo = AccesoDB::getCon();  
+          
+           $sql = "select cod_barra from cod_barra_prod where id_prod_cod_barra = :prod";
+            
+           $stmt = $pdo->prepare($sql);
+           $stmt->bindParam(":prod", $prod, PDO::PARAM_STR);
+           $stmt->execute();
+           $response = $stmt->fetchAll();
+           return $response;
+       } catch (Exception $e) {
+           echo"-1";
+            //echo"<script type=\"text/javascript\">alert('Error, comuniquese con el administrador".  $e->getMessage()." '); window.location='../../index.html';</script>";
+       }
+   }
+
+    /*///////////////////////////////////////
+    Cargar datos de producto pór cod barra
+    //////////////////////////////////////*/
+    public function cargar_datos_prod_cod($cod,$vig){
+        try{
+           
+           
+           $pdo = AccesoDB::getCon();  
+          
+           $sql = "select a.id_prod, a.nom_prod,a.uni_med_pro,a.stock_min_prod,
+           a.stock_prod,a.vig_prod,a.fec_cre_prod,a.usu_cre_prod,a.precio_bruto_prod,a.iva_prod,
+           a.proc_ganan_prod,a.precio_neto_prod,a.id_prov_prod,a.embalaje_prod,
+           cod.cod_barra cod_barra_prod,a.familia_prod,a.marca_prod,
+           fam.desc_item, uni.desc_item, a.precio_bruto_prod precio, a.id_prov_prod
+           from producto a, tab_param fam, tab_param uni, cod_barra_prod cod
+            where a.uni_med_pro = uni.cod_item and uni.cod_grupo = 1 and uni.vig_item = 1
+            and a.familia_prod = fam.cod_item and fam.cod_grupo = 2 and fam.vig_item = 1 
+            and cod.cod_barra = :cod and a.vig_prod = 1 and cod.id_prod_cod_barra = a.id_prod";
+            
+           $stmt = $pdo->prepare($sql);
+           $stmt->bindParam(":cod", $cod, PDO::PARAM_STR);
+           $stmt->execute();
+           $response = $stmt->fetchAll();
+           return $response;
+       } catch (Exception $e) {
+           echo"-1";
+            //echo"<script type=\"text/javascript\">alert('Error, comuniquese con el administrador".  $e->getMessage()." '); window.location='../../index.html';</script>";
+       }
+   }
+
+    /*////////////////////////////////////////////
+    ////////////// GENERAR PASS //////////////////
+    ////////////////////////////////////////////*/ 
+    public function generaPass(){
+        //Se define una cadena de caractares. Te recomiendo que uses esta.
+        $cadena = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";
+        //Obtenemos la longitud de la cadena de caracteres
+        $longitudCadena=strlen($cadena);
+         
+        //Se define la variable que va a contener la contraseña
+        $pass = "";
+        //Se define la longitud de la contraseña, en mi caso 10, pero puedes poner la longitud que quieras
+        $longitudPass=6;
+         
+        //Creamos la contraseña
+        for($i=1 ; $i<=$longitudPass ; $i++){
+            //Definimos numero aleatorio entre 0 y la longitud de la cadena de caracteres-1
+            $pos=rand(0,$longitudCadena-1);
+         
+            //Vamos formando la contraseña en cada iteraccion del bucle, añadiendo a la cadena $pass la letra correspondiente a la posicion $pos en la cadena de caracteres definida.
+            $pass .= substr($cadena,$pos,1);
+        }
+        return $pass;
+    }
+
+
+
+
+    /*///////////////////////////////////////
+    Validar usuario reset contraseña
+    //////////////////////////////////////*/
+        public function validar_usu($nick,$correo){
+
+            try{
+                
+                
+                $pdo = AccesoDB::getCon();
+
+
+                                $sql = "select id_usu id from usuario where nick_usu = :nick and correo_usu = :correo";
+                            
+        
+                       
+                                
+                            
+
+                $stmt = $pdo->prepare($sql);
+                $stmt->bindParam(":nick", $nick, PDO::PARAM_STR);
+                $stmt->bindParam(":correo", $correo, PDO::PARAM_STR);
+                $stmt->execute();
+
+                $response = $stmt->fetchColumn();
+                return $response;
+
+            } catch (Exception $e) {
+                echo"-1";
+            //echo"<script type=\"text/javascript\">alert('Error, comuniquese con el administrador".  $e->getMessage()." '); window.location='../../index.html';</script>";
+            }
+        }
+
+
+
+
+
+
+
     /*///////////////////////////////////////
     Cargar proveedores
     //////////////////////////////////////*/
@@ -851,12 +996,12 @@ where a.marca_veh_cli = b.id_marca and a.patente_veh_cli = :cli";
                $sql = "select a.id_prod, a.nom_prod,a.uni_med_pro,a.stock_min_prod,
 a.stock_prod,a.vig_prod,a.fec_cre_prod,a.usu_cre_prod,a.precio_bruto_prod,a.iva_prod,
 a.proc_ganan_prod,a.precio_neto_prod,a.id_prov_prod,a.embalaje_prod,
-a.cod_barra_prod,a.familia_prod,a.marca_prod,
+cod.cod_barra cod_barra_prod,a.familia_prod,a.marca_prod,
 fam.desc_item, uni.desc_item, a.precio_bruto_prod precio, a.id_prov_prod
-from producto a, tab_param fam, tab_param uni
+from producto a, tab_param fam, tab_param uni, cod_barra_prod cod
  where a.uni_med_pro = uni.cod_item and uni.cod_grupo = 1 and uni.vig_item = 1
  and a.familia_prod = fam.cod_item and fam.cod_grupo = 2 and fam.vig_item = 1 
- and (a.cod_barra_prod = :cod or a.id_prod = :cod) and a.vig_prod = 1";
+ and (a.cod_barra_prod = :cod or a.id_prod = :cod) and a.vig_prod = 1 and cod.id_prod_cod_barra = a.id_prod";
            }  else if ($vig == 2) {
                 $sql = "select * from producto where (cod_barra_prod = :cod or id_prod = :cod) and vig_prod = 1";
 
@@ -873,6 +1018,56 @@ from producto a, tab_param fam, tab_param uni
             //echo"<script type=\"text/javascript\">alert('Error, comuniquese con el administrador".  $e->getMessage()." '); window.location='../../index.html';</script>";
        }
    }
+
+
+
+
+
+
+
+           /*///////////////////////////////////////
+            enviar mail reset password
+        //////////////////////////////////////*/
+        public function correo_upd_pass($mail,$contraseña) {
+            try{
+                $to = $mail;
+                        $subject = "Cambio de Contraseña Lubricencio";
+
+                        $message = "
+                        <html>
+                        <head>
+                        <title>Cambio de Contraseña - Lubricencio</title>
+                        </head>
+                        <body>
+                        <h2>Actualización de contraseña</h2>
+                        Estimad@ se ha actualizado su contraseña para el sistema Lubricencio.
+                        <br>
+                        Tu Nueva Contraseña es:
+                        <br><br>
+                        Contraseña: <b>".$contraseña."</b>
+                        <br><br>
+                        Se despide Atte.
+                        <br><br>
+                        <h3>Lubricencio</h3>
+                        <br><br>
+                        Este mensaje es enviado automaticamente, favor no responder.
+                        </body>
+                        </html>
+                        ";
+
+                        // Always set content-type when sending HTML email
+                        $headers = "MIME-Version: 1.0" . "\r\n";
+                        $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+
+                        // More headers
+                        $headers .= 'From: <hola@andescode.cl' . "\r\n";
+                        $headers .= 'Cc: pvicencio@andescode.cl' . "\r\n";
+
+                        mail($to,$subject,$message,$headers);
+        } catch (Exception $e) {
+                throw $e;
+        }
+        }
 
 
 

@@ -1,3 +1,55 @@
+//////////funcion btn agregar codigo de barra
+$(document).on("click", "#btn_agregar_cod_barra", function (){  
+  cod = $("#cod_barra_agregar").val();
+  prod = $("#codigoBarra").val();
+  $.ajax({
+    type: "POST",
+    url: '../controles/controlCrearCodProdBarra.php',
+    data:{ "cod":cod, "prod":prod},
+    success: function (result) { 
+            var msg = result.trim();
+
+            switch(msg) {
+              case '-1':
+                  swal("Error", "No se ha agregado el código de barra, comuniquese con el administrador", "warning");
+                  break;
+              default:
+                swal("Código registrado correctamente", '', "success");
+                $("#btn_agregar_cod_barra").hide();
+                $("#cod_barra_agregar").val("");
+                $('#tabla_cod_barra tbody tr').remove();
+                $.ajax({
+                  type: "POST",
+                  url: '../controles/controlCargarCodsBarraProd.php',
+                  data:{"prod":prod},
+                  dataType:'json',
+                  success: function (result) { 
+
+                    var filas = Object.keys(result).length;
+
+                    for (  i = 0 ; i < filas; i++){ //cuenta la cantidad de registros
+
+                          var nuevafila= "<tr><td>" +
+                                                        result[i].cod_barra + "</td><td>" +
+                                                        '<a  class="btn btn-danger" href="impVenta.php?id='+result[i].id_venta+'&imp=1" target="_blank"><i class="fa fa-close" aria-hidden="true"></i></a></td></tr>'
+
+                          $("#tabla_cod_barra").append(nuevafila);
+
+                    }
+                  },
+                        error: function(jqXHR, textStatus, errorThrown){
+                                alert("ERROR: "+jqXHR.responseText);      
+                        }
+                });
+                }          
+
+    },
+            error: function(jqXHR, textStatus, errorThrown){
+                    alert("ERROR: "+jqXHR.responseText);      
+            }
+  });
+});
+
 //////////funcion registro ingreso
 $(document).on("click", "#btn_reg_ing", function (){  
 
@@ -515,7 +567,29 @@ $(document).ready(function() {
             $("#stockInicial").val(result[0].stock_prod);
             $("#stockMinimo").val(result[0].stock_min_prod);
 
+                            $.ajax({
+                              type: "POST",
+                              url: '../controles/controlCargarCodsBarraProd.php',
+                              data:{"prod":cod_prod},
+                              dataType:'json',
+                              success: function (result) { 
 
+                                var filas = Object.keys(result).length;
+
+                                for (  i = 0 ; i < filas; i++){ //cuenta la cantidad de registros
+
+                                      var nuevafila= "<tr><td>" +
+                                                                    result[i].cod_barra + "</td><td>" +
+                                                                    '<a  class="btn btn-danger" href="impVenta.php?id='+result[i].id_venta+'&imp=1" target="_blank"><i class="fa fa-close" aria-hidden="true"></i></a></td></tr>'
+
+                                      $("#tabla_cod_barra").append(nuevafila);
+
+                                }
+                              },
+                                    error: function(jqXHR, textStatus, errorThrown){
+                                            alert("ERROR: "+jqXHR.responseText);      
+                                    }
+                            });
 
             
             $("#btn_volver_buscar").show();
@@ -534,7 +608,6 @@ $(document).ready(function() {
                 $(".ro").prop('readonly', false);
                 $("#codigoBarra").prop('readonly', true);
                 $("#nombreProd").prop('readonly', false);
-                $("#btn_volver_buscar").show();
 
               }
 

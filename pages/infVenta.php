@@ -1,3 +1,6 @@
+<?php 
+  include("../includesPages/validaSesion.php")
+?>
 <!-- Include del Head HTML INCLUYE LIBRERIAS EXTERNAS -->
 <?php
  include("../includesPages/headHtmlInfVen.php");

@@ -1,14 +1,14 @@
 <?php
- session_start();
+ // session_start();
 
- if( isset($_SESSION['id']) ){
-    //Si la sesión esta seteada no hace nada
-    $id = $_SESSION['id'];
-  }
-  else{
-    //Si no lo redirige a la pagina index para que inicie la sesion 
-    header("location: ../index.html");
-  }  
+ // if( isset($_SESSION['id']) and ($_SESSION['perfil'] <> 0) ){
+ //    //Si la sesión esta seteada no hace nada
+ //    $id = $_SESSION['id'];
+ //  }
+ //  else{
+ //    //Si no lo redirige a la pagina index para que inicie la sesion 
+ //    header("location: ../index.html");
+ //  }  
 
 	require_once '../class/Funciones.php';
 
@@ -17,7 +17,7 @@
 		$prod = stripcslashes ($_POST['prod']);
 
 		 $fun = new Funciones();
-		 $re = $fun->cargar_datos_prod($prod,2);
+		 $re = $fun->cargar_cods_barra_prod($prod);
 		 
 
 

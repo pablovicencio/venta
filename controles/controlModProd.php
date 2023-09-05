@@ -1,14 +1,14 @@
 <?php
- // session_start();
+ session_start();
 
- // if( isset($_SESSION['id']) and ($_SESSION['perfil'] <> 0) ){
- //    //Si la sesión esta seteada no hace nada
- //    $id = $_SESSION['id'];
- //  }
- //  else{
- //    //Si no lo redirige a la pagina index para que inicie la sesion 
- //    header("location: ../index.html");
- //  }  
+ if( isset($_SESSION['id']) ){
+    //Si la sesión esta seteada no hace nada
+    $id = $_SESSION['id'];
+  }
+  else{
+    //Si no lo redirige a la pagina index para que inicie la sesion 
+    header("location: ../index.html");
+  }  
 
 	require_once '../class/claseProducto.php';
 
@@ -39,7 +39,7 @@
 			
 
 
-	        $dao = new ProductoDAO($id_prod,$nom_prod,$uni_med_pro,$stock_min_prod,'',$vig_prod,'','',$precio_bruto_prod,$iva_prod,$proc_ganan_prod, $precio_neto_prod,$id_prov_prod,$embalaje_prod,'',$familia_prod,$marca_prod,$precio_compra_neto,$porc_dscto_compra,$valor_dscto_compra,$precio_compra_neto_dscto,$iva_compra,$precio_total_compra,$valor_ganancia,$precio_venta_calc);
+	        $dao = new ProductoDAO($id_prod,$nom_prod,$uni_med_pro,$stock_min_prod,'',$vig_prod,'',$id,$precio_bruto_prod,$iva_prod,$proc_ganan_prod, $precio_neto_prod,$id_prov_prod,$embalaje_prod,'',$familia_prod,$marca_prod,$precio_compra_neto,$porc_dscto_compra,$valor_dscto_compra,$precio_compra_neto_dscto,$iva_compra,$precio_total_compra,$valor_ganancia,$precio_venta_calc);
 				
 			$mod_prod = $dao->mod_prod();
 			 

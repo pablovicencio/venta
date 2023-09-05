@@ -9,6 +9,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="js/login.js"></script>
 
+    <script src="https://kit.fontawesome.com/a9fac48dba.js" crossorigin="anonymous"></script>
+
 
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
@@ -56,22 +58,26 @@
 <body class="text-center">
     
 <main class="form-signin">
-  <form id="formLogin" name="formLogin" onsubmit="return false;">
+  <form id="resetPWD" name="resetPWD" onsubmit="return false;">
     <img src="assets/images/logo.png" alt="Lubricentro" class="dark-logo" width="80" height="90">
-    <h1 class="h3 mb-3 fw-normal">Ingresar</h1>
+    <h1 class="h3 mb-3 fw-normal">Recuperar Contraseña</h1>
 
     <div class="form-floating">
       <input type="text" class="form-control" id="nick" name="nick" placeholder="Nick" maxlength="8">
       <label for="floatingInput">Nick</label>
     </div>
     <div class="form-floating">
-      <input type="password" class="form-control" id="pwd" pass="pwd" placeholder="Password" maxlength="6">
-      <label for="floatingPassword">Password</label>
-    </div>
+      <input type="text" class="form-control" id="correo" name="correo" placeholder="Correo" maxlength="50">
+      <label for="floatingInput">Correo</label>
+    </div><br>
 
-    <button class="w-100 btn btn-lg btn-primary" type="submit">Entrar</button><br><br>
+    <div class="alert alert-dark" role="alert">
+            <i class='fas fa-exclamation-triangle'></i> La nueva contraseña sera enviada al correo
+      </div>
+    
+    <button class="w-100 btn btn-lg btn-primary" type="submit">Enviar</button><br><br>
 
-    <a href="upd_pwd.html" class="btn btn-outline-secondary btn-sm">Olvide mi contraseña</a>
+    <a href="index.html" class="btn btn-outline-success btn-sm">Volver</a>
 
     <p class="mt-5 mb-3 text-muted">Andescode ©</p>
   </form>

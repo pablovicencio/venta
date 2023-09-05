@@ -85,9 +85,9 @@ class VentaDAO
                 $pdo = AccesoDB::getCon();
 
                 $sql_ing_venta = "INSERT INTO venta
-                                    (fec_venta,est_venta,precio_total_venta,obs_venta,id_cli_venta,km_venta,dscto_venta,km_prox_venta, cond_pago_venta)
+                                    (fec_venta,est_venta,precio_total_venta,obs_venta,id_cli_venta,km_venta,dscto_venta,km_prox_venta, cond_pago_venta, usu_venta)
                                     VALUES
-                                    (:fec_venta, :est_venta, :precio_total_venta, :obs_venta, (select id_cli from clientes where patente_veh_cli = :id_cli_venta), :km_venta, :dscto,:km_prox, :cond_pago)";
+                                    (:fec_venta, :est_venta, :precio_total_venta, :obs_venta, (select id_cli from clientes where patente_veh_cli = :id_cli_venta), :km_venta, :dscto,:km_prox, :cond_pago, :usu)";
 
 
                 $stmt = $pdo->prepare($sql_ing_venta);
@@ -100,6 +100,7 @@ class VentaDAO
                 $stmt->bindParam(":dscto", $this->dscto_venta, PDO::PARAM_INT);
                 $stmt->bindParam(":km_prox", $this->km_prox_venta, PDO::PARAM_INT);
                 $stmt->bindParam(":cond_pago", $this->cond_pago_venta, PDO::PARAM_INT);
+                $stmt->bindParam(":usu", $this->usu_venta, PDO::PARAM_INT);
                 $stmt->execute();
 
 

@@ -1,3 +1,42 @@
+//////////funcion buscar producto codigo de barra
+$(document).ready(function() {
+  $("#formCodProd").submit(function() { 
+
+         	
+         	var cod_barra_prod = $("#codBarra").val();
+
+
+         	 $.ajax({
+			        type: "POST",
+			        url: '../controles/controlCargarProdCod.php',
+			        data:{"cod_prod":cod_barra_prod},
+			        dataType:'json',
+			        success: function (result) {
+			        if (result != '') {
+                $('#codigoBarra').val(result[0].id_prod);
+			        	$('#stockActual').val(result[0].stock_prod);
+                $('#precio').val(result[0].precio);
+			        	$('#nom_prod').text(result[0].nom_prod);
+            $("#codBarra").prop('readonly', true);
+						$("#codigoBarra").prop('readonly', true);
+						$("#btn_volver_buscar").show();
+						$("#cantidad").focus(); 
+			        }else{
+                $("#codBarra").val('');
+			        	swal("Producto no encontrado", "Verifique el codigo del producto", "error");
+                $("#codBarra").focus();
+			        }  
+
+			},
+			        error: function(jqXHR, textStatus, errorThrown){
+			                alert("ERROR: "+jqXHR.responseText);      
+			        }
+			});
+
+
+   });
+});
+
 //////////Desasociar cotizacion
  $(document).ready(function(){
         $("#id_cot").keyup(function(e){
@@ -906,10 +945,13 @@ var imp = $("input[name='optradioImp']:checked").val();
 
 var cta = 0;
 
+
 if ($('#datCta').is(":checked"))
 {
   var cta = 1;
 }
+
+
 
 if (($("#resTotal").val()!= '')&&($("#resTotal").val() != 'NaN')) {
   
@@ -1084,7 +1126,7 @@ if (($("#resTotal").val()!= '')&&($("#resTotal").val() != 'NaN')) {
         										  $('#resIva').val("");
         										  $('#resTotal').val("");
         										  $("#dscto").val("");
-        										  window.open('impVenta.php?id='+msg+'&imp='+imp+'&cta='+cta, '_blank'); 
+        										  window.open('impVenta.php?id='+msg+'&imp='+imp, '_blank'); 
         										  
         
         										  
@@ -1460,8 +1502,10 @@ $(document).on("click", "#btn_agr_prod", function () {
 									$('#codigoBarra').val("");
 									$("#codigoBarra").prop('readonly', false);
 									$("#btn_volver_buscar").hide();
-									$('#nom_prod').text(""); 
-									$("#codigoBarra").focus();   
+									$('#nom_prod').text("");
+                  $('#codBarra').val("");
+									$("#codBarra").prop('readonly', false);
+									$("#codBarra").focus();   
 									var e = jQuery.Event("keypress");
 									e.which = 13; // # Some key code value
 									$("#dscto").trigger(e);
@@ -1491,9 +1535,11 @@ $(document).on("click", "#btn_volver_buscar", function () {
 		$('#stockActual').val("");
 		$('#cantidad').val("");
 		$('#codigoBarra').val("");
+    $('#codBarra').val("");
 		$("#codigoBarra").prop('readonly', false);
+    $("#codBarra").prop('readonly', false);
 		$("#btn_volver_buscar").hide();
-		$("#codigoBarra").focus(); 
+		$("#codBarra").focus(); 
 		$('#nom_prod').text(""); 
     $('#precioCot').val("");
 
@@ -1519,7 +1565,9 @@ $(document).ready(function() {
 			        	$('#stockActual').val(result[0].stock_prod);
                 $('#precio').val(result[0].precio);
 			        	$('#nom_prod').text(result[0].nom_prod);
+                $('#codBarra').val(result[0].cod_barra_prod);
 						$("#codigoBarra").prop('readonly', true);
+            $("#codBarra").prop('readonly', true);
 						$("#btn_volver_buscar").show();
 						$("#cantidad").focus(); 
 			        }else{

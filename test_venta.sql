@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.3
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 22-05-2020 a las 01:45:19
--- Versión del servidor: 5.7.23
--- Versión de PHP: 7.2.10
+-- Tiempo de generación: 05-09-2023 a las 23:18:17
+-- Versión del servidor: 5.7.31
+-- Versión de PHP: 7.3.21
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -52,6 +51,39 @@ CREATE TABLE IF NOT EXISTS `clientes` (
 INSERT INTO `clientes` (`id_cli`, `nom_cli`, `mail_cli`, `marca_veh_cli`, `anio_veh_cli`, `km_act_cli`, `fono_cli`, `dir_cli`, `modelo_veh_cli`, `patente_veh_cli`) VALUES
 (1, 'TONY STARK', 'TONY.STARK@GMAIL.COM', 1, 2018, 50000, '9966343838', 'torre avengers', 'ROADSTER', 'aa1122'),
 (2, 'bruce wayne', 'batbruce@gmail.com', 1, 2021, 10000, '996643636', NULL, 'model a', '113344');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `cod_barra_prod`
+--
+
+DROP TABLE IF EXISTS `cod_barra_prod`;
+CREATE TABLE IF NOT EXISTS `cod_barra_prod` (
+  `id_cod_barra` int(11) NOT NULL AUTO_INCREMENT,
+  `cod_barra` varchar(20) COLLATE utf8_spanish_ci NOT NULL,
+  `vig_cod` int(11) NOT NULL DEFAULT '1',
+  `id_prod_cod_barra` int(11) NOT NULL,
+  PRIMARY KEY (`id_cod_barra`),
+  UNIQUE KEY `cod_barra_UNIQUE` (`cod_barra`),
+  KEY `fk_id_prod_cod_barra_idx` (`id_prod_cod_barra`),
+  KEY `idx_cod_barra_prod` (`cod_barra`)
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `cod_barra_prod`
+--
+
+INSERT INTO `cod_barra_prod` (`id_cod_barra`, `cod_barra`, `vig_cod`, `id_prod_cod_barra`) VALUES
+(1, '7805918130404', 1, 1),
+(3, '22883994', 1, 1),
+(4, '115588', 1, 1),
+(5, '223366', 1, 1),
+(6, '334455', 1, 1),
+(9, '1122111', 1, 1),
+(13, '11221112', 1, 1),
+(14, '1122', 1, 1),
+(15, '11434', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -236,6 +268,31 @@ INSERT INTO `tab_param` (`id_param`, `cod_grupo`, `cod_item`, `desc_item`, `vig_
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `usuario`
+--
+
+DROP TABLE IF EXISTS `usuario`;
+CREATE TABLE IF NOT EXISTS `usuario` (
+  `id_usu` int(11) NOT NULL AUTO_INCREMENT,
+  `nom_usu` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
+  `vig_usu` int(11) NOT NULL,
+  `nick_usu` varchar(10) COLLATE utf8_spanish_ci NOT NULL,
+  `pass_usu` varchar(32) COLLATE utf8_spanish_ci NOT NULL,
+  `correo_usu` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
+  PRIMARY KEY (`id_usu`),
+  UNIQUE KEY `nick_usu_idx` (`nick_usu`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `usuario`
+--
+
+INSERT INTO `usuario` (`id_usu`, `nom_usu`, `vig_usu`, `nick_usu`, `pass_usu`, `correo_usu`) VALUES
+(1, 'test pablo', 1, 'pablo', 'e10adc3949ba59abbe56e057f20f883e', 'pvicencio@hotmail.cl');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `venta`
 --
 
@@ -278,6 +335,12 @@ INSERT INTO `venta` (`id_venta`, `fec_venta`, `est_venta`, `precio_total_venta`,
 --
 ALTER TABLE `clientes`
   ADD CONSTRAINT `fk_marca_cli` FOREIGN KEY (`marca_veh_cli`) REFERENCES `marcas_veh` (`id_marca`);
+
+--
+-- Filtros para la tabla `cod_barra_prod`
+--
+ALTER TABLE `cod_barra_prod`
+  ADD CONSTRAINT `fk_id_prod_cod_barra` FOREIGN KEY (`id_prod_cod_barra`) REFERENCES `producto` (`id_prod`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `det_ingreso`

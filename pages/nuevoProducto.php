@@ -46,7 +46,7 @@
         
                                         </div>
                                         <div class="row">
-                                            <form id="formBusProd" name="formBusProd" onsubmit="return false;" class="form-horizontal p-t-20"  >
+                                            <form id="formBusProd" name="formBusProd" onsubmit="return false;" class="form-horizontal p-t-20"  autocomplete="off">
                                             <div class="col-md-10">
                                                 <div class="form-group">
                                                     <div class="input-group">
@@ -283,7 +283,7 @@
                                             <div class="col-md-6">
                                                 <div class="form-group ">
                                                     <div class="input-group">
-                                                        <div class="input-group-addon">Cantidad a Ingresar&nbsp;<i class="mdi mdi-database"></i></div>
+                                                        <div class="input-group-addon">Cantidad&nbsp;<i class="mdi mdi-database"></i></div>
                                                         <input type="number" class="form-control" id="cantidad" name="cantidad" placeholder="0.0" step="any" >
                                                     </div>
                                                 </div>
@@ -301,9 +301,8 @@
                                                         <button type="button" class="btn btn-warning" name="btn_mod_prod" id="btn_mod_prod" >Modificar Producto</button>
                                                       
                                                         <button type="submit" class="btn btn-success" name="btn_guar_prod" id="btn_guar_prod" style="display: none"> <i class="fa fa-pencil"></i> Guardar Producto</button>
-
-                                                        <button type="submit" class="btn btn-success" name="btn_cre_prod" id="btn_cre_prod" style="display: none"> <i class="fa fa-pencil"></i> Crear Producto</button>
                                                         
+                                                        <button type="submit" class="btn btn-success" name="btn_cre_prod" id="btn_cre_prod" style="display: none"> <i class="fa fa-pencil"></i> Crear Producto</button>
                                                     </div>
                                                 </div>
                                             </div>

@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,7 +16,7 @@
 
     <?php
         include("../includesPages/recursoSuperior.php");
-        include("../includesPages/recursoVenta.php");
+        include("../includesPages/recursoInfVenta.php");
 
            require_once '../class/Funciones.php';
   

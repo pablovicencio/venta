@@ -1,7 +1,7 @@
 <!--RECURSOS EXTERNOS-->
     <!-- All Jquery -->
     <!-- ============================================================== -->
-    <script src="../assets/plugins/jquery/jquery.min.js"></script>
+    <!--<script src="../assets/plugins/jquery/jquery.min.js"></script>-->
     <!-- Bootstrap popper Core JavaScript -->
     <script src="../assets/plugins/bootstrap/js/popper.min.js"></script>
     <script src="../assets/plugins/bootstrap/js/bootstrap.min.js"></script>

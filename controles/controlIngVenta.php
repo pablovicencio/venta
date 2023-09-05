@@ -43,6 +43,18 @@
 	        }else{
 	          $km_venta = 0;
 	        }
+	         
+	        if ((strlen($_POST['km_prox']) <> 0)) {
+	         $km_prox = stripcslashes ($_POST['km_prox']);
+	        }else{
+	          $km_prox = 0;
+	        }
+	        
+	        if (isset($_POST['cond_pago'])) {
+	         $cond_pago = $_POST['cond_pago'];
+	        }else{
+	          $cond_pago = 3;
+	        }
 
 
 	         $TableData = stripcslashes ($_POST['data']);
@@ -51,7 +63,7 @@
 	         $TableData= json_decode($TableData,TRUE);
 
 
-	        $dao = new VentaDAO('',$fec_venta,$est_venta,$precio_total_venta,'','','','','','',$obs_venta, $patente_cli,$km_venta,$dscto,$TableData);
+	        $dao = new VentaDAO('',$fec_venta,$est_venta,$precio_total_venta,'','','','','','',$obs_venta, $patente_cli,$km_venta,$dscto,$km_prox,$cond_pago,$TableData);
 
 				
 			$ing_venta = $dao->ing_venta();

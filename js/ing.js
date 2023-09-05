@@ -268,6 +268,8 @@ $(document).on("click", "#btn_agr_prod", function () {
     
     
     $("#PreComNetoDscto").val( parseInt(comNeto - valorDsctoCom));
+    
+    comNeto = parseInt($("#PreComNetoDscto").val());
 
     var ivaCompra = parseInt(comNeto * 0.19);
     $("#IvaCompra").val(ivaCompra);
@@ -301,12 +303,11 @@ $(document).on("click", "#btn_agr_prod", function () {
 $(document).ready(function() {
   $("#formModProd").submit(function() { 
 
-           var btn = $(document.activeElement).attr('id');
+        var btn = $(document.activeElement).attr('id');
 
-
-      if (btn == 'btn_guar_prod') {
-
-
+        if (btn == 'btn_guar_prod') {
+            
+            
            $.ajax({
               type: "POST",
               url: '../controles/controlModProd.php',
@@ -330,15 +331,15 @@ $(document).ready(function() {
                                     $("#codigoBarra").prop('readonly', true);
                           }          
 
-            },
-                    error: function(jqXHR, textStatus, errorThrown){
-                            alert("ERROR: "+jqXHR.responseText);      
-                    }
-            });
+              },
+                      error: function(jqXHR, textStatus, errorThrown){
+                              alert("ERROR: "+jqXHR.responseText);      
+                      }
+              });
+              
+        }else if(btn == 'btn_cre_prod'){
 
-      }else if(btn == 'btn_cre_prod'){
-
-            var codigoBarra = $("#codigoBarra").val();
+                var codigoBarra = $("#codigoBarra").val();
 
             $.ajax({
               type: "POST",
@@ -368,8 +369,6 @@ $(document).ready(function() {
 
 
       }
-
-
    });
 });
 
@@ -389,7 +388,7 @@ if ( ($("#codigoBarra").val()!= '')&&($("#codigoBarra").val() != 'NaN')) {
         $(".ro").prop('readonly', false);
         $("#codigoBarra").prop('readonly', true);
 }else{
-  swal("Error Datos", "Selecciona un Producto", "warning");
+  swal("Datos Ingresados", "Selecciona un Producto", "warning");
 }
            
             
@@ -424,7 +423,7 @@ $(document).on("click", "#btn_volver_buscar", function () {
 
 //////////funcion busqueda predictiva por nombre
  $(document).ready(function(){
-        $("#codigoBarra").keyup(function(e){
+        $("#codigoBarra").keydown(function(e){
 
           $("#lista_prod").empty();
         if(e.which == 13) { 
@@ -437,10 +436,14 @@ $(document).on("click", "#btn_volver_buscar", function () {
                                       
               //obtenemos el texto introducido en el campo de búsqueda
               prod = $("#codigoBarra").val();
+                
+              lenprod = prod.length;
+              
 
-              if ((prod!= '')&&(prod != 'NaN')) {
+              if ((prod!= '')&&(prod != 'NaN')&& (lenprod < 10) && (lenprod > 2)) { 
                   //hace la búsqueda                                                                                  
                 $.ajax({
+                      async: false,
                       type: "POST",
                       url: "../controles/controlBuscarProd.php",
                       data:  { "prod" : prod},
@@ -517,6 +520,7 @@ $(document).ready(function() {
             
             $("#btn_volver_buscar").show();
             $("#codigoBarra").prop('readonly', true);
+            $("#nombreProd").prop('readonly', false);
             //$("#cantidad").focus(); 
               }else{
                 swal("Producto no encontrado", "Debe crear el Producto", "warning"); 
@@ -530,7 +534,7 @@ $(document).ready(function() {
                 $(".ro").prop('readonly', false);
                 $("#codigoBarra").prop('readonly', true);
                 $("#nombreProd").prop('readonly', false);
-
+                $("#btn_volver_buscar").show();
 
               }
 

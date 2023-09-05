@@ -1,6 +1,6 @@
 <!-- Include del Head HTML INCLUYE LIBRERIAS EXTERNAS -->
 <?php
- include("includesMain/headHtml.php");
+ include("includesPages/headHtmlMain.php");
 ?>
 <!-- FIN Include del Head HTML -->
 
@@ -33,50 +33,38 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-lg-3">
+                    <div class="col-lg-4">
                         <div class="card">
                             <div class="card-body">
                                 <div class="d-flex no-block">
                                     <div class="m-r-20 align-self-center"><span class="lstick m-r-20"></span><img src="assets/images/icon/income.png" alt="Income" /></div>
                                     <div class="align-self-center">
                                         <h6 class="text-muted m-t-10 m-b-0">Total Venta Diaria</h6>
-                                        <h2 class="m-t-0">$953.000</h2></div>
+                                        <h2 class="m-t-0">$<span id="spnVtaDia"></span></h2></div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-3">
+                    <div class="col-lg-4">
                         <div class="card">
                             <div class="card-body">
                                 <div class="d-flex no-block">
                                     <div class="m-r-20 align-self-center"><span class="lstick m-r-20"></span><img src="assets/images/icon/expense.png" alt="Income" /></div>
                                     <div class="align-self-center">
-                                        <h6 class="text-muted m-t-10 m-b-0">Ordenes de Compra</h6>
-                                        <h2 class="m-t-0">232</h2></div>
+                                        <h6 class="text-muted m-t-10 m-b-0">Ventas Hoy</h6>
+                                        <h2 class="m-t-0"><span id="spnNroVtaDia"></span></h2></div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-3">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="d-flex no-block">
-                                    <div class="m-r-20 align-self-center"><span class="lstick m-r-20"></span><img src="assets/images/icon/assets.png" alt="Income" /></div>
-                                    <div class="align-self-center">
-                                        <h6 class="text-muted m-t-10 m-b-0">Ordenes Pendientes</h6>
-                                        <h2 class="m-t-0">243</h2></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
+                    <div class="col-lg-4">
                         <div class="card">
                             <div class="card-body">
                                 <div class="d-flex no-block">
                                     <div class="m-r-20 align-self-center"><span class="lstick m-r-20"></span><img src="assets/images/icon/staff.png" alt="Income" /></div>
                                     <div class="align-self-center">
                                         <h6 class="text-muted m-t-10 m-b-0">Clientes Hoy</h6>
-                                        <h2 class="m-t-0">23</h2></div>
+                                        <h2 class="m-t-0"><span id="spnNroCli"></span></h2></div>
                                 </div>
                             </div>
                         </div>
@@ -91,42 +79,52 @@
                             <div class="card-body">
                                 <div class="d-flex">
                                     <div>
-                                        <h3 class="card-title m-b-5"><span class="lstick"></span>Resúmen Ventas </h3>
-                                    </div>
-                                    <div class="ml-auto">
-                                        <select class="custom-select b-0">
-                                            <option selected="">Enero 2020</option>
-                                            <option value="1">Febrero 2020</option>
-                                            <option value="2">Marzo 2020</option>
-                                            <option value="3">Abril 2020</option>
-                                        </select>
+                                        <h3 class="card-title m-b-5">Resúmen Ventas <span id="mesact"></span></h3>
                                     </div>
                                 </div>
                             </div>
                             <div class="bg-theme stats-bar">
                                 <div class="row">
                                     <div class="col-lg-3 col-md-4">
-                                        <div class="p-20 active">
-                                            <h6 class="text-white">Total Ventas</h6>
-                                            <h3 class="text-white m-b-0">$18.654.548</h3>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-4">
-                                        <div class="p-20">
+                                        <div class="p-20" active>
                                             <h6 class="text-white">Este Mes</h6>
-                                            <h3 class="text-white m-b-0">$8.000.000</h3>
+                                            <h3 class="text-white m-b-0">$<span id="spnVtaMes"></span></h3>
                                         </div>
                                     </div>
                                     <div class="col-lg-3 col-md-4">
                                         <div class="p-20">
                                             <h6 class="text-white">Esta Semana</h6>
-                                            <h3 class="text-white m-b-0">$650.000</h3>
+                                            <h3 class="text-white m-b-0">$<span id="spnVtaSem"></span></h3>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-md-4">
+                                        <div class="p-20" active>
+                                            <h6 class="text-white">Este Mes M.O</h6>
+                                            <h3 class="text-white m-b-0">$<span id="spnVtaMesMO"></span></h3>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-md-4">
+                                        <div class="p-20">
+                                            <h6 class="text-white">Esta Semana M.O</h6>
+                                            <h3 class="text-white m-b-0">$<span id="spnVtaSemMO"></span></h3>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="card-body">
-                                <div id="sales-overview2" class="p-relative" style="height:360px;"></div>
+                            <br>
+                            <div class="row">
+
+                                    <div class="col-sm-12 col-md-12 col-lg-6">
+                                    <h5>Ventas Diarias</h5>
+                                    <div id="vdia" class="graf"></div>
+                                    </div>
+
+                                    <div class="col-sm-12 col-md-12 col-lg-6">
+                                    <h5>Ventas Mensuales</h5>
+                                    <div id="vmen" class="graf"></div>
+                                    </div>
+
+
                             </div>
                         </div>
                     </div>
@@ -140,71 +138,56 @@
                             <div class="card-body">
                                 <div class="d-flex">
                                     <div>
-                                        <h4 class="card-title"><span class="lstick"></span>Últimas Recepciones Proveedores</h4></div>
-                                    <div class="ml-auto">
-                                        <select class="custom-select b-0">
-                                            <option selected="">Enero 2020</option>
-                                            <option value="1">Febrero 2020</option>
-                                            <option value="2">Marzo 2020</option>
-                                            <option value="3">Abril 2020</option>
-                                        </select>
+                                        <h4 class="card-title"><span class="lstick"></span>Ranking de productos</h4></div>
+                                </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="table-responsive">
+                                      <table class="table table-striped table-bordered table-sm" id="tab_prod" name="tab_prod" style="font-size: 0.9rem;">
+                                          <thead>
+                                            <tr>
+                                              <th scope="col" >Producto </th>
+                                              <th scope="col" >Cantidad </th>
+                                              <th scope="col" >Familia Producto </th>
+                                              <th scope="col" >Marca </th>
+                                              <th scope="col" >Stock Actual </th>
+                                            </tr>
+                                          </thead>
+                                          <tbody>
+                                          </tbody>
+                                          <tfoot>
+                                            <tr>
+                                              <th scope="col" >Producto </th>
+                                              <th scope="col" >Cantidad </th>
+                                              <th scope="col" >Familia Producto </th>
+                                              <th scope="col" >Marca </th>
+                                              <th scope="col" >Stock Actual </th>
+                                            </tr>
+                                          </tfoot>
+                                        </table>
                                     </div>
                                 </div>
-                                <div class="table-responsive m-t-20">
-                                    <table class="table vm no-th-brd no-wrap pro-of-month">
-                                        <thead>
+                                <div class="col-md-4">
+                                    <div class="table-responsive">
+                                      <table class="table table-striped table-bordered table-sm" id="tab_fam" name="tab_fam" style="font-size: 0.9rem;">
+                                          <thead>
                                             <tr>
-                                                <th colspan="2">Transportista</th>
-                                                <th>Proveedor</th>
-                                                <th>Estado</th>
+                                              <th scope="col" >Familia </th>
+                                              <th scope="col" >Cantidad </th>
                                             </tr>
-                                        </thead>
-                                        <tbody>
+                                          </thead>
+                                          <tbody>
+                                          </tbody>
+                                          <tfoot>
                                             <tr>
-                                                <td style="width:50px;"><span class="round"><i class="mdi mdi-truck-delivery"></i></span></td>
-                                                <td>
-                                                    <h6>Chofer Nombre Apellido</h6><small class="text-muted">Patente:GFFX85</small></td>
-                                                <td>Proveedor 1</td>
-                                                <td><span class="label label-success label-rounded">Low</span></td>
+                                              <th scope="col" >Familia </th>
+                                              <th scope="col" >Cantidad </th>
                                             </tr>
-                                            <tr class="active">
-                                                <td><span class="round"><i class="mdi mdi-truck-delivery"></span></td>
-                                                <td>
-                                                    <h6>Chofer Nombre Apellido</h6><small class="text-muted">Patente:GFFX85</small></td>
-                                                <td>Proveedor 2</td>
-                                                <td><span class="label label-info label-rounded">Medium</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td><span class="round round-success"><i class="mdi mdi-truck-delivery"></span></td>
-                                                <td>
-                                                    <h6>Chofer Nombre Apellido</h6><small class="text-muted">Patente:GFFX85</small></td>
-                                                <td>Proveedor 3</td>
-                                                <td><span class="label label-primary label-rounded">High</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td><span class="round round-primary"><i class="mdi mdi-truck-delivery"></span></td>
-                                                <td>
-                                                    <h6>Chofer Nombre Apellido</h6><small class="text-muted">Patente:GFFX85</small></td>
-                                                <td>Proveedor 4</td>
-                                                <td><span class="label label-danger label-rounded">Low</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td><span class="round round-warning"><i class="mdi mdi-truck-delivery"></span></td>
-                                                <td>
-                                                    <h6>Chofer Nombre Apellido</h6><small class="text-muted">Patente:GFFX85</small></td>
-                                                <td>Proveedor 5</td>
-                                                <td><span class="label label-success label-rounded">High</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td><span class="round round-danger"><i class="mdi mdi-truck-delivery"></span></td>
-                                                <td>
-                                                    <h6>Chofer Nombre Apellido</h6><small class="text-muted">Patente:GFFX85</small></td>
-                                                <td>Proveedor 6</td>
-                                                <td><span class="label label-info label-rounded">High</span></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                          </tfoot>
+                                        </table>
+                                    </div>
                                 </div>
+                            </div>
                             </div>
                         </div>
                     </div>

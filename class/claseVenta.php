@@ -21,6 +21,8 @@ class VentaDAO
     private $id_cli_venta;
     private $km_venta;
     private $dscto_venta;
+    private $km_prox_venta;
+    private $cond_pago_venta;
     private $data_venta;
 
 
@@ -40,6 +42,8 @@ class VentaDAO
                                     $id_cli_venta=null,
                                     $km_venta=null,
                                     $dscto_venta=null,
+                                    $km_prox_venta=null,
+                                    $cond_pago_venta=null,
                                     $data_venta=null) 
                                 {
 
@@ -58,6 +62,8 @@ class VentaDAO
     $this->id_cli_venta           =$id_cli_venta;
     $this->km_venta               =$km_venta;
     $this->dscto_venta            =$dscto_venta;
+    $this->km_prox_venta          =$km_prox_venta;
+    $this->cond_pago_venta        =$cond_pago_venta;
     $this->data_venta             =$data_venta;
 
 
@@ -79,9 +85,9 @@ class VentaDAO
                 $pdo = AccesoDB::getCon();
 
                 $sql_ing_venta = "INSERT INTO venta
-                                    (fec_venta,est_venta,precio_total_venta,obs_venta,id_cli_venta,km_venta,dscto_venta)
+                                    (fec_venta,est_venta,precio_total_venta,obs_venta,id_cli_venta,km_venta,dscto_venta,km_prox_venta, cond_pago_venta)
                                     VALUES
-                                    (:fec_venta, :est_venta, :precio_total_venta, :obs_venta, (select id_cli from clientes where patente_veh_cli = :id_cli_venta), :km_venta, :dscto)";
+                                    (:fec_venta, :est_venta, :precio_total_venta, :obs_venta, (select id_cli from clientes where patente_veh_cli = :id_cli_venta), :km_venta, :dscto,:km_prox, :cond_pago)";
 
 
                 $stmt = $pdo->prepare($sql_ing_venta);
@@ -92,6 +98,8 @@ class VentaDAO
                 $stmt->bindParam(":id_cli_venta", $this->id_cli_venta, PDO::PARAM_STR);
                 $stmt->bindParam(":km_venta", $this->km_venta, PDO::PARAM_INT);
                 $stmt->bindParam(":dscto", $this->dscto_venta, PDO::PARAM_INT);
+                $stmt->bindParam(":km_prox", $this->km_prox_venta, PDO::PARAM_INT);
+                $stmt->bindParam(":cond_pago", $this->cond_pago_venta, PDO::PARAM_INT);
                 $stmt->execute();
 
 
@@ -165,12 +173,53 @@ class VentaDAO
 
                 $pdo = AccesoDB::getCon();
 
-                $sql_anu_venta = "";
+                $sql_anu_venta = "update venta
+                                    set est_venta = :est, usu_anu_venta = :usu, obs_anu_venta = :obs_anu, fec_anu_venta = :fec_anu
+                                    where id_venta = :id";
 
 
                 $stmt = $pdo->prepare($sql_anu_venta);
-                //$stmt->bindParam(":", $, PDO::PARAM_INT);
+                $stmt->bindParam(":est", $this->est_venta, PDO::PARAM_INT);
+                $stmt->bindParam(":usu", $this->usu_anu_venta, PDO::PARAM_INT);
+                $stmt->bindParam(":obs_anu", $this->obs_anu_venta, PDO::PARAM_STR);
+                $stmt->bindParam(":fec_anu", $this->fec_anu_venta, PDO::PARAM_STR);
+                $stmt->bindParam(":id", $this->id_venta, PDO::PARAM_INT);
                 $stmt->execute();
+
+
+
+
+
+                 $sql= "SELECT id_prod_det_venta FROM det_venta where id_cab_venta = :id";
+                    $stmt1 = $pdo->prepare($sql);
+                    $stmt1->bindParam(":id", $this->id_venta, PDO::PARAM_INT);
+                    $stmt1->execute();
+                    $productos = $stmt1->fetchAll();
+
+
+                foreach ($productos as $row) {
+                              $prod = $row['id_prod_det_venta'];
+
+                              $sql_upd_stock = "update producto
+                                    set stock_prod = stock_prod + (select v.cant_dventa from det_venta v where v.id_cab_venta = :id and id_prod = v.id_prod_det_venta)
+                                    where id_prod = :prod";
+
+
+                                    $stmt2 = $pdo->prepare($sql_upd_stock);
+                                    $stmt2->bindParam(":id", $this->id_venta, PDO::PARAM_INT);
+                                    $stmt2->bindParam(":prod", $prod, PDO::PARAM_INT);
+                                    $stmt2->execute();
+
+
+
+
+
+                 }
+
+                
+
+
+
 
 
 
@@ -183,6 +232,13 @@ class VentaDAO
                 echo $e->getMessage();
             }
     }
+
+
+
+
+
+
+
 
 
 

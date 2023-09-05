@@ -20,16 +20,13 @@
                         <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-cart"></i><span class="hide-menu">Ventas</span></a>
                             <ul aria-expanded="false" class="collapse">
                                 <li><a href="https://andescode.cl/venta/pages/nuevaVenta.php">Nueva Venta</a></li>
-                                <li><a href="#">Historial</a></li>
-                                <li><a href="#">Resúmen</a></li>
+                                <li><a href="https://andescode.cl/venta/pages/infVenta.php">Informe</a></li>
                             </ul>
                         </li>
                         <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-barcode-scan"></i><span class="hide-menu">Productos</span></a>
                             <ul aria-expanded="false" class="collapse">
-                                <li><a href="#">Listado </a></li>
-                                <li><a href="https://andescode.cl/venta/pages/nuevoProducto.php">Agregar</a></li>
-                                <li><a href="#">Modificar</a></li>
-                                <li><a href="#">Stock</a></li>
+                                <li><a href="https://andescode.cl/venta/pages/nuevoProducto.php">Agregar o Modificar</a></li>
+                                <li><a href="https://andescode.cl/venta/pages/infStock.php">Informe Stock</a></li>
                             </ul>
                         </li>
                         <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-folder-account"></i><span class="hide-menu">Clientes</span></a>
@@ -49,11 +46,7 @@
                         </li>
                         <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-truck-delivery"></i><span class="hide-menu">Proveedores</span></a>
                             <ul aria-expanded="false" class="collapse">
-                                <li><a href="#">Ingresar Orden de Compra</a></li>
-                                <li><a href="#">Listado </a></li>
-                                <li><a href="#">Agregar</a></li>
-                                <li><a href="#">Modificar</a></li>
-                                
+                                <li><a href="https://andescode.cl/venta/pages/prov.php">Agregar o Modificar</a></li>
                             </ul>
                         </li>
                         <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-file-chart"></i><span class="hide-menu">Reportería</span></a>

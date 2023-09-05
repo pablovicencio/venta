@@ -31,15 +31,15 @@ class ProveedoresDAO
                                 {
 
 
-    $this->$id_prov         =$id_prov;
-    $this->$nom_prov        =$nom_prov;
-    $this->$desc_prov       =$desc_prov;
-    $this->$fono_prov       =$fono_prov;
-    $this->$mail_prov       =$mail_prov;
-    $this->$vig_prov        =$vig_prov;
-    $this->$usu_cre_prov    =$usu_cre_prov;
-    $this->$fec_cre_prov    =$fec_cre_prov;
-    $this->$web_prov        =$web_prov
+    $this->id_prov         =$id_prov;
+    $this->nom_prov        =$nom_prov;
+    $this->desc_prov       =$desc_prov;
+    $this->fono_prov       =$fono_prov;
+    $this->mail_prov       =$mail_prov;
+    $this->vig_prov        =$vig_prov;
+    $this->usu_cre_prov    =$usu_cre_prov;
+    $this->fec_cre_prov    =$fec_cre_prov;
+    $this->web_prov        =$web_prov;
                                     
 
     }
@@ -59,18 +59,45 @@ class ProveedoresDAO
              
                 $pdo = AccesoDB::getCon();
 
-                $sql_crear_prov = "";
+                $sql_crear_prov = "INSERT INTO proveedores
+                                    (
+                                    NOM_PROV,
+                                    DESC_PROV,
+                                    FONO,
+                                    MAIL,
+                                    VIGENCIA,
+                                    USU_CRE,
+                                    FEC_CRE,
+                                    PAGINA_WEB)
+                                    VALUES
+                                    (
+                                    :nom,
+                                    :desc_prov,
+                                    :fono,
+                                    :mail,
+                                    :vig,
+                                    :usu,
+                                    :fec,
+                                    :web)
+                                    ";
 
 
                 $stmt = $pdo->prepare($sql_crear_prov);
-                $stmt->bindParam(":", , PDO::PARAM_INT);
+                $stmt->bindParam(":nom", $this->nom_prov, PDO::PARAM_STR);
+                $stmt->bindParam(":desc_prov", $this->desc_prov, PDO::PARAM_STR);
+                $stmt->bindParam(":fono", $this->fono_prov, PDO::PARAM_STR);
+                $stmt->bindParam(":mail", $this->mail_prov, PDO::PARAM_STR);
+                $stmt->bindParam(":vig", $this->vig_prov, PDO::PARAM_INT);
+                $stmt->bindParam(":usu", $this->usu_cre_prov, PDO::PARAM_INT);
+                $stmt->bindParam(":fec", $this->fec_cre_prov, PDO::PARAM_STR);
+                $stmt->bindParam(":web", $this->web_prov, PDO::PARAM_STR);
                 
                 $stmt->execute();
 
                 
                 
                 return $stmt->rowCount();
-                 
+                
         
 
             } catch (Exception $e) {
@@ -85,31 +112,43 @@ class ProveedoresDAO
     /*///////////////////////////////////////
     Modificar Proveedor
     //////////////////////////////////////*/
-    public function mod_prov() {
+     public function mod_prov() {
 
 
-        try{
+         try{
              
-                $pdo = AccesoDB::getCon();
+                 $pdo = AccesoDB::getCon();
 
-                $sql_mod_prov = "";
+                 $sql_mod_prov = "UPDATE proveedores
+                                    SET
+                                    DESC_PROV = :desc,
+                                    FONO = :fono,
+                                    MAIL = :mail,
+                                    PAGINA_WEB = :web
+                                    WHERE ID_PROV = :id
+                                    ";
 
 
-                $stmt = $pdo->prepare($sql_mod_prov);
-                $stmt->bindParam(":", $, PDO::PARAM_INT);
-                $stmt->execute();
+                 $stmt = $pdo->prepare($sql_mod_prov);
+                 $stmt->bindParam(":id", $this->id_prov, PDO::PARAM_INT);
+                 $stmt->bindParam(":desc", $this->desc_prov, PDO::PARAM_STR);
+                 $stmt->bindParam(":fono", $this->fono_prov, PDO::PARAM_STR);
+                 $stmt->bindParam(":mail", $this->mail_prov, PDO::PARAM_STR);
+                 $stmt->bindParam(":web", $this->web_prov, PDO::PARAM_STR);
+                
+                 $stmt->execute();
 
 
 
-                    return $stmt->rowCount();
+                     return $stmt->rowCount();
 
         
 
-            } catch (Exception $e) {
-                //echo"-1";
-                echo $e->getMessage();
-            }
-    }
+             } catch (Exception $e) {
+                 //echo"-1";
+                 echo $e->getMessage();
+             }
+     }
 
 
 

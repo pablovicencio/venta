@@ -2,8 +2,6 @@
 <?php
  include("../includesPages/headHtml.php");
  $id = stripcslashes ($_GET['id']);
- $imp = stripcslashes ($_GET['imp']);
- $cta = stripcslashes ($_GET['cta']);
 
   require_once '../class/Funciones.php';
   
@@ -35,7 +33,7 @@
                     <div class="col-3">
                                   <button class="btn btn-warning" type="button" id="btn_imp"
                                                 name="btn_imp" onclick='$("#btn_imp").hide(); window.print();'><i class="fa fa-print" aria-hidden="true"></i></button>
-                      <img src="../assets/images/logo.png" width="64" height="79">
+                      <img src="../assets/images/logo.png"  width="64" height="79">
                     </div>
                     <div class="col-6 text-center">
                           <h2>Felipe Vicencio Arias</h2>
@@ -44,7 +42,7 @@
                     </div>
                     <div class="col-3">
                       <?php
-                          $re = $fun ->cargar_datos_cab_venta($id);
+                          $re = $fun ->cargar_datos_cab_cot($id);
 
                          foreach($re as $row)
                             {
@@ -53,9 +51,8 @@
 
                         
                       ?>
-                      Orden N° <?php echo $id;?><br>
+                      Cotización N° <?php echo $id;?><br>
                       Fecha <?php echo date("d-m-Y", time());?><br>
-                      Condicion Pago <?php echo $row['cond_pago']?><br>
 
                     </div>
                   </div>
@@ -68,8 +65,7 @@
                     Nombre: <?php echo $row['nom_cli']?><br>
                     Mail: <?php echo $row['mail_cli']?><br>
                     Teléfono: <?php echo $row['fono_cli']?><br>
-                    Kilometraje: <?php echo $row['km_venta']?><br>
-                    Proxima Mantención: <?php echo $row['km_prox_venta']?>
+                    Kilometraje: <?php echo $row['km_cot']?><br>
                   </div>
                   <div class="col">
                     Vehiculo: <?php echo $row['nom_marca']?><br>
@@ -92,9 +88,9 @@
                                             <div class="card">
                                                 <div class="card-body">
                                                
-                                                    <h4 class="card-title">Resumen Compra &nbsp;<i class="mdi  mdi-cart"></i></h4>
+                                                    <h4 class="card-title">Resumen Cotización &nbsp;<i class="mdi  mdi-cart"></i></h4>
                                                     <div class="table-responsive m-t-2">
-                                                        <table id="resumenVentaImp" name="resumenVenta" class="table-striped table-bordered table-responsive-sm" cellspacing="0" width="100%">
+                                                        <table id="resumenCotImp" name="resumenCot" class="table-striped table-bordered table-responsive-sm" cellspacing="0" width="100%">
                                                             <thead>
                                                                 <tr>
                                                                     <th>Item</th>
@@ -107,11 +103,11 @@
                                                             </thead>
                                                             <tbody>
                                                               <?php
-                                                                $re1 = $fun ->cargar_datos_det_venta($id);
+                                                                $re1 = $fun ->cargar_datos_det_cot($id,1);
                                                                 $i=0;
                                                                foreach($re1 as $row1)
                                                                   {
-                                                                    $i++
+                                                                    $i++;
                                                                   
                                                                 ?>
 
@@ -119,12 +115,12 @@
                                                                 
                                                                   <td><?php echo $i ?></td>
                                                                   <td><small><?php echo $row1['nom_prod']?></small></td>
-                                                                  <td><?php echo $row1['cant_dventa']?></td>
+                                                                  <td><?php echo $row1['cant_dcot']?></td>
                                                                   <td><?php echo $row1['desc_item']?></td>
                                                                   
 
-                                                                  <td><?php echo "<script>var string = numeral(". $row1['precio_uni_dventa'].").format('$000,000,000,000');document.write(string)</script>"?></td>
-                                                                  <td><?php echo "<script>var string = numeral(". $row1['precio_total_dventa'].").format('$000,000,000,000');document.write(string)</script>"?></td>
+                                                                  <td><?php echo "<script>var string = numeral(". $row1['precio_uni_dcot'].").format('$000,000,000,000');document.write(string)</script>"?></td>
+                                                                  <td><?php echo "<script>var string = numeral(". $row1['precio_total_dcot'].").format('$000,000,000,000');document.write(string)</script>"?></td>
                                                                   
                                                                  
                                                                 
@@ -148,63 +144,23 @@
                                         
                                     </div>
                                     <div class="col-12 mb-4 justify-content-end">
-                                    
-                                    <?php 
-                                          if ($imp == 'impDet') {
-                                                    echo '<div class="col-sm-4 mt-0 justify-content-end text-right">
-                                                <div class="input-group">
-                                                    <div class="input-group-addon">Descuento</i></div>
-                                                    <input type="number" class="form-control " id="dscto" name="dscto" value="'. $row['dscto_venta'].'" readonly>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-4 mt-0 justify-content-end text-right">
-                                                <div class="input-group">
-                                                    <div class="input-group-addon">Neto</i></div>
-                                                    <input type="text" class="form-control text-right" id="resNeto" name="resNeto" value="'. $row['neto'].'" readonly>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-4 mt-0 justify-content-end text-right">
-                                                <div class="input-group">
-                                                    <div class="input-group-addon">IVA</i></div>
-                                                    <input type="text" class="form-control text-right" id="resIva" name="resIva" value="'.  $row['iva'].'" readonly>
-                                                </div>
-                                            </div>';
-                                                  }
-        
-        
-        
-                                      ?>
 
                                     
-                                    
+
+
                                     <div class="col-sm-4 mt-0 justify-content-end text-right">
                                         <div class="input-group">
                                             <div class="input-group-addon">Total</i></div>
-                                            <input type="text" class="form-control text-right" id="resTotal" name="resTotal" value="<?php echo $row['precio_total_venta']?>" readonly>
+                                            <input type="text" class="form-control text-right" id="resTotal" name="resTotal" value="<?php echo $row['precio_total_cot']?>" readonly>
                                         </div>
                                     </div>
-                                    <br>
-
-                                      <?php 
-                                          if ($cta==1) {
-                                                    echo '<h5>Datos para Transferencia</h5>
-                                                          <label>Nombre: </label><b>COSBEN SPA</b><br>
-                                                          <label>Rut: </label><b>77808182-2</b><br>
-                                                          <label>Banco: </label><b>BANCO DE CHILE</b><br>
-                                                          <b><label>Cuenta Corriente 1351018607</label></b><br>
-                                                          <label>Correo: </label><b>cosben49@gmail.com</b><br>';
-                                                  }
-        
-        
-        
-                                      ?>
 
                                 </div>
 
                                 <div class="row">
                                   <div class="col-12">
                                     <h5 class="card-title">Observaciones <i class="fa fa-clipboard" aria-hidden="true"></i></h5>
-                                    <textarea class="form-control" id="obs_ven" name="obs_ven" rows="4" maxlength="200"><?php echo $row['obs_venta']?></textarea>
+                                    <textarea class="form-control" id="obs_ven" name="obs_ven" rows="4" maxlength="200"><?php echo $row['obs_cot']?></textarea>
                                   </div>
                                 </div>
                                 <hr>

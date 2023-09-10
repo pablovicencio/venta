@@ -5,6 +5,26 @@ require_once '../recursos/db/db.php';
 
 class Funciones 
 {
+    /*///////////////////////////////////////
+    Eliminar codigo de barraa
+    //////////////////////////////////////*/
+    public function eliminar_cod_barra($cod){
+        try{
+           
+           
+           $pdo = AccesoDB::getCon();  
+          
+           $sql = "delete from `cod_barra_prod` where cod_barra = :cod;";
+            
+           $stmt = $pdo->prepare($sql);
+           $stmt->bindParam(":cod", $cod, PDO::PARAM_STR);
+           $stmt->execute();
+           return $stmt->rowCount();
+       } catch (Exception $e) {
+           echo"-1";
+            //echo"<script type=\"text/javascript\">alert('Error, comuniquese con el administrador".  $e->getMessage()." '); window.location='../../index.html';</script>";
+       }
+   }
 
     /*///////////////////////////////////////
     Crear codigo de barraa

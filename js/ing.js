@@ -1,3 +1,31 @@
+//////////funcion btn eliminar codigo de barra
+function del_cod_barra(r, cod) {
+  var i = r.parentNode.parentNode.rowIndex;
+  console.log(i);
+  console.log(cod);
+  document.getElementById("tabla_cod_barra").deleteRow(i);
+  
+  $.ajax({
+    type: "POST",
+    url: '../controles/controlEliminarCodProdBarra.php',
+    data:{ "cod":cod},
+    success: function (result) { 
+            var msg = result.trim();
+
+            switch(msg) {
+              case '-1':
+                  swal("Error", "No se ha eliminado el código de barra, comuniquese con el administrador", "warning");
+                  break;
+              default:
+                swal("Código eliminado correctamente", '', "success");
+                }
+    },
+            error: function(jqXHR, textStatus, errorThrown){
+                    alert("ERROR: "+jqXHR.responseText);      
+            }
+  });
+};
+
 //////////funcion btn agregar codigo de barra
 $(document).on("click", "#btn_agregar_cod_barra", function (){  
   cod = $("#cod_barra_agregar").val();
@@ -30,7 +58,7 @@ $(document).on("click", "#btn_agregar_cod_barra", function (){
 
                           var nuevafila= "<tr><td>" +
                                                         result[i].cod_barra + "</td><td>" +
-                                                        '<a  class="btn btn-danger" href="impVenta.php?id='+result[i].id_venta+'&imp=1" target="_blank"><i class="fa fa-close" aria-hidden="true"></i></a></td></tr>'
+                                                        '<button id="btn_prod" name="btn_del_prod" class="btn btn-danger" onclick="del_cod_barra(this, ' + result[i].cod_barra + ')"><i class="fa fa-close" aria-hidden="true"></i></button></td></tr>'
 
                           $("#tabla_cod_barra").append(nuevafila);
 
@@ -580,7 +608,7 @@ $(document).ready(function() {
 
                                       var nuevafila= "<tr><td>" +
                                                                     result[i].cod_barra + "</td><td>" +
-                                                                    '<a  class="btn btn-danger" href="impVenta.php?id='+result[i].id_venta+'&imp=1" target="_blank"><i class="fa fa-close" aria-hidden="true"></i></a></td></tr>'
+                                                                    '<button id="btn_prod" name="btn_del_prod" class="btn btn-danger" onclick="del_cod_barra(this, ' + result[i].cod_barra + ')"><i class="fa fa-close" aria-hidden="true"></i></button></td></tr>'
 
                                       $("#tabla_cod_barra").append(nuevafila);
 

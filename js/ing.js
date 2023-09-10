@@ -15,7 +15,6 @@ $(document).on("click", "#btn_agregar_cod_barra", function (){
                   break;
               default:
                 swal("Código registrado correctamente", '', "success");
-                $("#btn_agregar_cod_barra").hide();
                 $("#cod_barra_agregar").val("");
                 $('#tabla_cod_barra tbody tr').remove();
                 $.ajax({
@@ -467,6 +466,7 @@ $(document).on("click", "#btn_volver_buscar", function () {
     $(".ro").prop('readonly', true);
     $('#formModProd').trigger("reset");
     $('#id_prod').val("");
+    $('#tabla_cod_barra tbody tr').remove();
 
 
 });
@@ -535,7 +535,6 @@ $(document).ready(function() {
           
           var cod_prod = $("#codigoBarra").val();
           $("#lista_prod").hide();
-          
 
 
            $.ajax({
@@ -573,6 +572,7 @@ $(document).ready(function() {
                               data:{"prod":cod_prod},
                               dataType:'json',
                               success: function (result) { 
+                                $('#tabla_cod_barra tbody tr').remove();
 
                                 var filas = Object.keys(result).length;
 
